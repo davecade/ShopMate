@@ -1,14 +1,14 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
-import HomePage from './pages/Home/Home';
 import styles from './App.styles';
+import {AppNavigator} from './navigation/AppNavigator';
 
-const App = (): JSX.Element => {
+function App() {
   return (
     <SafeAreaView style={styles.container}>
-      <HomePage />
+      <AppNavigator />
     </SafeAreaView>
   );
-};
+}
 
 export default App;

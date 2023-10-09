@@ -1,15 +1,16 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
-import styles from './Home.styles';
+import styles from './styles';
 
-const HomePage: React.FC = () => {
+type LoginViewProps = {
+  image: number;
+};
+
+const LoginView = ({image}: LoginViewProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Shop Mate</Text>
-      <Image
-        source={require('../../assets/images/home.png')}
-        style={styles.image}
-      />
+      <Image source={image} style={styles.image} />
       <Text style={styles.subTitle}>Shopping Lists</Text>
       <Text style={styles.description}>...made easy and convenient</Text>
       <TouchableOpacity style={styles.button} onPress={() => {}}>
@@ -19,4 +20,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default LoginView;
