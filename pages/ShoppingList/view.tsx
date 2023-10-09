@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import {styles} from './styles';
+import Button from '../../components/Button/Button';
 
 type ShoppingListViewProps = {
   onCreateList: () => void;
@@ -23,9 +24,9 @@ export const ShoppingListView = ({
       <Text style={styles.emptyText}>
         Tap the button below to create one now
       </Text>
-      <TouchableOpacity style={styles.button} onPress={onCreateList}>
-        <Text style={styles.buttonText}>+ Create</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <Button text={'+ Create'} onPress={onCreateList} type="primary" />
+      </View>
     </View>
   );
 };
