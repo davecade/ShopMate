@@ -5,10 +5,13 @@ import Button from '../../components/Button/Button';
 
 type LoginViewProps = {
   image: number;
-  navigateToShoppingList: () => void;
+  navigateToShoppingListDashboard: () => void;
 };
 
-const LoginView = ({image, navigateToShoppingList}: LoginViewProps) => {
+const LoginView = ({
+  image,
+  navigateToShoppingListDashboard,
+}: LoginViewProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Shop Mate</Text>
@@ -18,7 +21,7 @@ const LoginView = ({image, navigateToShoppingList}: LoginViewProps) => {
       <Button
         type="secondary"
         text={'Start using Shopper'}
-        onPress={navigateToShoppingList}
+        onPress={navigateToShoppingListDashboard}
       />
     </View>
   );

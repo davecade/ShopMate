@@ -1,11 +1,17 @@
 import React from 'react';
 import {ShoppingListView} from './view';
 
-export const ShoppingListContainer = () => {
+type ShoppingListContainerProps = {
+  navigateToShoppingListAddEdit: () => void;
+};
+
+export const ShoppingListContainer = ({
+  navigateToShoppingListAddEdit,
+}: ShoppingListContainerProps) => {
   const trolleyImage = require('../../assets/images/trolley.png');
 
   const onCreateList = () => {
-    console.log('Create List');
+    navigateToShoppingListAddEdit();
   };
 
   return <ShoppingListView onCreateList={onCreateList} image={trolleyImage} />;

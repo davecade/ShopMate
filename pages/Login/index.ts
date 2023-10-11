@@ -1,2 +1,2 @@
-import {LoginContainer} from './container';
-export default LoginContainer;
+import {LoginScene} from './scene';
+export default LoginScene;

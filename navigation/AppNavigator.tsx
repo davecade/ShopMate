@@ -3,7 +3,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import Login from '../pages/Login';
-import ShoppingList from '../pages/ShoppingList';
+import ShoppingListsDashboard from '../pages/ShoppingListsDashboard';
+import ShoppingListAddEdit from '../pages/ShoppingListsDashboard/AddEdit';
+import {ModalBackButton} from '../components/ModalBackButton/ModalBackButton';
 
 const Stack = createStackNavigator();
 
@@ -17,9 +19,18 @@ export const AppNavigator = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="ShoppingList"
-          component={ShoppingList}
+          name="ShoppingListsDashboard"
+          component={ShoppingListsDashboard}
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ShoppingListAddEdit"
+          component={ShoppingListAddEdit}
+          options={({navigation}) => ({
+            headerShown: true,
+            // eslint-disable-next-line react/no-unstable-nested-components
+            headerLeft: () => <ModalBackButton navigation={navigation} />,
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
