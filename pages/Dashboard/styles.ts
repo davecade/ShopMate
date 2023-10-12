@@ -3,12 +3,12 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: '#1E1E1E',
     padding: 20,
     justifyContent: 'center',
   },
   shoppingTitle: {
-    color: '#FFF',
+    color: '#D2C2C2',
     fontSize: 24,
     marginBottom: 50,
     textAlign: 'center',
@@ -22,13 +22,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  cartImage: {
-    width: 150,
-    height: 150,
-    resizeMode: 'contain',
-  },
   emptyText: {
-    color: '#FFF',
+    color: '#777676',
     textAlign: 'center',
     marginVertical: 5,
   },

@@ -1,26 +1,46 @@
 import {Text, TouchableOpacity} from 'react-native';
-import React from 'react';
-import {styles} from './Button.styles';
+import React, {useEffect, useState} from 'react';
+import {styles} from './styles';
 
 type ButtonProps = {
   text: string;
   onPress: () => void;
-  type?: 'primary' | 'secondary';
+  type?: 'primary' | 'secondary' | 'grey';
 };
 
-const Button = ({text, onPress, type = 'primary'}: ButtonProps) => {
+export const Button = ({text, onPress, type = 'primary'}: ButtonProps) => {
+  const [buttonStyles, setButtonStyles] = useState<{}>(styles.primaryButton);
+  const [buttonTextStyles, setButtonTextStyles] = useState<{}>(
+    styles.primaryButtonText,
+  );
+
+  useEffect(() => {
+    const setStyles = () => {
+      switch (type) {
+        case 'primary':
+          setButtonStyles(styles.primaryButton);
+          setButtonTextStyles(styles.primaryButtonText);
+          break;
+        case 'secondary':
+          setButtonStyles(styles.secondaryButton);
+          setButtonTextStyles(styles.secondaryButtonText);
+          break;
+        case 'grey':
+          setButtonStyles(styles.greyButton);
+          setButtonTextStyles(styles.greyButtonText);
+          break;
+        default:
+          setButtonStyles(styles.primaryButton);
+          setButtonTextStyles(styles.primaryButtonText);
+          break;
+      }
+    };
+    setStyles();
+  }, [type]);
+
   return (
-    <TouchableOpacity
-      style={type === 'primary' ? styles.primaryButton : styles.loginButton}
-      onPress={onPress}>
-      <Text
-        style={
-          type === 'primary' ? styles.primaryButtonText : styles.loginButtonText
-        }>
-        {text}
-      </Text>
+    <TouchableOpacity style={buttonStyles} onPress={onPress}>
+      <Text style={buttonTextStyles}>{text}</Text>
     </TouchableOpacity>
   );
 };
-
-export default Button;

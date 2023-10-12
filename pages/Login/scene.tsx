@@ -5,14 +5,10 @@ import {useNavigation} from '@react-navigation/native';
 export const LoginScene = () => {
   const {navigate} = useNavigation();
 
-  const navigateToShoppingListDashboard = () => {
+  const navigateToDashboard = () => {
     //@ts-ignore
-    navigate('ShoppingListsDashboard');
+    navigate('Dashboard');
   };
 
-  return (
-    <LoginContainer
-      navigateToShoppingListDashboard={navigateToShoppingListDashboard}
-    />
-  );
+  return <LoginContainer navigateToDashboard={navigateToDashboard} />;
 };

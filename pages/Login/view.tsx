@@ -1,27 +1,25 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text} from 'react-native';
 import {styles} from './styles';
-import Button from '../../components/Button/Button';
+import {Button} from '../../components/Button/Button';
+import {ImageWithGlow} from '../../components/ImageWithGlow/ImageWithGlow';
 
 type LoginViewProps = {
   image: number;
-  navigateToShoppingListDashboard: () => void;
+  navigateToDashboard: () => void;
 };
 
-const LoginView = ({
-  image,
-  navigateToShoppingListDashboard,
-}: LoginViewProps) => {
+const LoginView = ({image, navigateToDashboard}: LoginViewProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Shop Mate</Text>
-      <Image source={image} style={styles.image} />
+      <ImageWithGlow image={image} />
       <Text style={styles.subTitle}>Shopping Lists</Text>
       <Text style={styles.description}>...made easy and convenient</Text>
       <Button
         type="secondary"
         text={'Start using Shopper'}
-        onPress={navigateToShoppingListDashboard}
+        onPress={navigateToDashboard}
       />
     </View>
   );

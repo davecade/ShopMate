@@ -3,18 +3,13 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: '#1E1E1E',
     alignItems: 'center',
     justifyContent: 'center',
   },
   title: {
     fontSize: 32,
     color: 'white',
-    marginBottom: 20,
-  },
-  image: {
-    width: 200,
-    height: 200,
     marginBottom: 20,
   },
   subTitle: {
