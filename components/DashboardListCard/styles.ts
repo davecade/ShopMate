@@ -1,5 +1,9 @@
 import {StyleSheet} from 'react-native';
 
+export const inProgressColor = '#19aa29';
+export const notStartedColor = '#a0a0a0';
+export const completedColor = '#2ffa43';
+
 export const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
@@ -23,7 +27,6 @@ export const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     borderWidth: 5,
-    borderColor: '#00cc66',
     justifyContent: 'center',
     alignItems: 'center',
   },

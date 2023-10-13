@@ -10,7 +10,7 @@ export const shoppingListsData: ShoppingList[] = [
         name: 'Milk',
         quantity: 1,
         price: 1.5,
-        isBought: false,
+        isBought: true,
       },
       {
         id: 2,
@@ -24,7 +24,7 @@ export const shoppingListsData: ShoppingList[] = [
         name: 'Eggs',
         quantity: 12,
         price: 3,
-        isBought: false,
+        isBought: true,
       },
     ],
   },
