@@ -3,6 +3,7 @@ import {View, Text} from 'react-native';
 import {styles} from './styles';
 import {Button} from '../../components/Button/Button';
 import {ImageWithGlow} from '../../components/ImageWithGlow/ImageWithGlow';
+import {Heading} from '@gluestack-ui/themed';
 
 type LoginViewProps = {
   image: number;
@@ -12,7 +13,7 @@ type LoginViewProps = {
 const LoginView = ({image, navigateToDashboard}: LoginViewProps) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Shop Mate</Text>
+      <Heading style={styles.title}>Shop Mate</Heading>
       <ImageWithGlow image={image} />
       <Text style={styles.subTitle}>Shopping Lists</Text>
       <Text style={styles.description}>...made easy and convenient</Text>

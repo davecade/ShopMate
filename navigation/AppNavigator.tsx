@@ -5,9 +5,9 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 
-import Login from '../pages/Login';
-import Dashboard from '../pages/Dashboard';
-import CreateList from '../pages/CreateList';
+import Login from '../screens/Login';
+import Dashboard from '../screens/Dashboard';
+import CreateList from '../screens/CreateList';
 
 const Stack = createStackNavigator();
 

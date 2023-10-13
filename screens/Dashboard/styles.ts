@@ -3,15 +3,15 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1E1E1E',
+    backgroundColor: '#131313',
     padding: 20,
     justifyContent: 'center',
   },
   shoppingTitle: {
-    color: '#D2C2C2',
     fontSize: 24,
     marginBottom: 50,
     textAlign: 'center',
+    color: 'white',
   },
   shoppingCartContainer: {
     alignItems: 'center',
@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   emptyText: {
-    color: '#777676',
+    color: 'white',
     textAlign: 'center',
     marginVertical: 5,
   },
