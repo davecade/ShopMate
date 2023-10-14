@@ -11,8 +11,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#1c1b1b',
     padding: 20,
-    borderRadius: 10,
-    marginVertical: 10,
+    borderRadius: 15,
+    borderWidth: 1.5,
   },
   listName: {
     fontSize: 20,
@@ -21,17 +21,5 @@ export const styles = StyleSheet.create({
   },
   listItems: {
     color: '#999',
-  },
-  progressCircle: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    borderWidth: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  progressText: {
-    color: '#00cc66',
-    fontWeight: 'bold',
   },
 });

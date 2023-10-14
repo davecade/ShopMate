@@ -19,7 +19,7 @@ const LoginView = ({image, navigateToDashboard}: LoginViewProps) => {
       <Text style={styles.description}>...made easy and convenient</Text>
       <Button
         type="secondary"
-        text={'Start using Shopper'}
+        text={'Start using Shop Mate'}
         onPress={navigateToDashboard}
       />
     </View>

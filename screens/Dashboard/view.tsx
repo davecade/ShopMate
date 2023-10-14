@@ -3,8 +3,8 @@ import {View, Text} from 'react-native';
 import {styles} from './styles';
 import {Button} from '../../components/Button/Button';
 import {ImageWithGlow} from '../../components/ImageWithGlow/ImageWithGlow';
-import {Heading} from '@gluestack-ui/themed';
-import {DashboardListCard} from '../../components/DashboardListCard/DashboardListCard';
+import {Heading, VStack} from '@gluestack-ui/themed';
+import {ListCard} from '../../components/ListCard/ListCard';
 import {ShoppingList} from '../../types';
 
 type DashboardViewProps = {
@@ -25,7 +25,7 @@ export const DashboardView = ({
     <View style={styles.container}>
       {isEmpty && (
         <>
-          <Heading style={styles.shoppingTitle}>Your shopping Lists</Heading>
+          <Heading style={styles.shoppingTitle}>Empty List</Heading>
           <View>
             <View style={styles.imageContainer}>
               <ImageWithGlow image={image} />
@@ -48,15 +48,14 @@ export const DashboardView = ({
       )}
       {hasShoppingLists && (
         <>
-          {shoppingLists.map((list, index) => {
-            return (
-              <DashboardListCard
-                key={index}
-                title={list.name}
-                items={list.items}
-              />
-            );
-          })}
+          <Heading style={styles.shoppingTitle}>Your shopping Lists</Heading>
+          <VStack space="2xl">
+            {shoppingLists.map((list, index) => {
+              return (
+                <ListCard key={index} title={list.name} items={list.items} />
+              );
+            })}
+          </VStack>
           <View style={styles.buttonContainer}>
             <Button
               text={'+ Create'}
