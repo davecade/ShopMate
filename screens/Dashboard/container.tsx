@@ -5,10 +5,12 @@ import {shoppingListsAtom} from '../../state/atoms';
 
 type DashboardContainerProps = {
   navigateToCreateList: () => void;
+  navigateToItemList: () => void;
 };
 
 export const DashboardContainer = ({
   navigateToCreateList,
+  navigateToItemList,
 }: DashboardContainerProps) => {
   const shoppingLists = useRecoilValue(shoppingListsAtom);
   const trolleyImage = require('../../assets/images/trolley.png');
@@ -17,9 +19,14 @@ export const DashboardContainer = ({
     navigateToCreateList();
   };
 
+  const onPressList = () => {
+    navigateToItemList();
+  };
+
   return (
     <DashboardView
       onCreateList={onCreateList}
+      onPressList={onPressList}
       image={trolleyImage}
       shoppingLists={shoppingLists}
     />

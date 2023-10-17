@@ -8,6 +8,7 @@ import {
 import Login from '../screens/Login';
 import Dashboard from '../screens/Dashboard';
 import CreateList from '../screens/CreateList';
+import ItemListScene from '../screens/ItemList';
 
 const Stack = createStackNavigator();
 
@@ -34,6 +35,16 @@ export const AppNavigator = () => {
           name="CreateList"
           component={CreateList}
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ItemList"
+          component={ItemListScene}
+          options={{
+            headerShown: true,
+            headerBackTitleVisible: false,
+            cardStyleInterpolator:
+              CardStyleInterpolators.forModalPresentationIOS, // for modal presentation style
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -5,13 +5,13 @@ import {ShoppingItem} from '../../types';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import ProgressCircle from '../ProgressCircle/ProgressCircle';
 
-type ListCardProps = {
+type ItemCardProps = {
   title: string;
   items: ShoppingItem[];
   onPress: () => void;
 };
 
-export const ListCard = ({title, items, onPress}: ListCardProps) => {
+export const ItemCard = ({title, items, onPress}: ItemCardProps) => {
   const totalItems = items?.length || 0;
   const completedItems = items?.filter(item => item.isBought).length;
 

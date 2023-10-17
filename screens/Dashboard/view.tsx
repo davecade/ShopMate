@@ -3,18 +3,20 @@ import {View, Text} from 'react-native';
 import {styles} from './styles';
 import {Button} from '../../components/Button/Button';
 import {ImageWithGlow} from '../../components/ImageWithGlow/ImageWithGlow';
-import {Heading, VStack} from '@gluestack-ui/themed';
+import {Heading, VStack, ScrollView} from '@gluestack-ui/themed';
 import {ListCard} from '../../components/ListCard/ListCard';
 import {ShoppingList} from '../../types';
 
 type DashboardViewProps = {
-  onCreateList: (title: string) => void;
+  onCreateList: () => void;
+  onPressList: (listId: string) => void;
   image: number;
   shoppingLists: ShoppingList[];
 };
 
 export const DashboardView = ({
   onCreateList,
+  onPressList,
   image,
   shoppingLists,
 }: DashboardViewProps) => {
@@ -39,7 +41,7 @@ export const DashboardView = ({
             <View style={styles.buttonContainer}>
               <Button
                 text={'+ Create'}
-                onPress={() => onCreateList('hello')}
+                onPress={() => onCreateList()}
                 type="primary"
               />
             </View>
@@ -49,17 +51,24 @@ export const DashboardView = ({
       {hasShoppingLists && (
         <>
           <Heading style={styles.shoppingTitle}>Your shopping Lists</Heading>
-          <VStack space="2xl">
-            {shoppingLists.map((list, index) => {
-              return (
-                <ListCard key={index} title={list.name} items={list.items} />
-              );
-            })}
-          </VStack>
+          <ScrollView>
+            <VStack space="2xl">
+              {shoppingLists.map((list, index) => {
+                return (
+                  <ListCard
+                    key={index}
+                    title={list.name}
+                    items={list.items}
+                    onPress={onPressList}
+                  />
+                );
+              })}
+            </VStack>
+          </ScrollView>
           <View style={styles.buttonContainer}>
             <Button
               text={'+ Create'}
-              onPress={() => onCreateList('hello')}
+              onPress={() => onCreateList()}
               type="primary"
             />
           </View>

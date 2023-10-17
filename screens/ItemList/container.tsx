@@ -1,16 +1,16 @@
 import React from 'react';
-import {CreateListView} from './view';
+import {ItemListView} from './view';
 import {useSetRecoilState} from 'recoil';
 import {shoppingListsAtom} from '../../state/atoms';
 import {ShoppingList} from '../../types';
 
-type CreateListContainerProps = {
+type ItemListtContainerProps = {
   navigateToPreviousPage: () => void;
 };
 
-export const CreateListContainer = ({
+export const ItemListContainer = ({
   navigateToPreviousPage,
-}: CreateListContainerProps) => {
+}: ItemListtContainerProps) => {
   const setShoppingLists = useSetRecoilState(shoppingListsAtom);
 
   const onPressCreate = (title: string) => {
@@ -22,14 +22,10 @@ export const CreateListContainer = ({
     setShoppingLists(prev => [...prev, newShoppingList]);
     navigateToPreviousPage();
   };
-  const onPressCancel = () => {
+
+  const goBack = () => {
     navigateToPreviousPage();
   };
 
-  return (
-    <CreateListView
-      onPressCancel={onPressCancel}
-      onPressCreate={onPressCreate}
-    />
-  );
+  return <ItemListView goBack={goBack} onPressCreate={onPressCreate} />;
 };
