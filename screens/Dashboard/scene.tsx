@@ -10,9 +10,9 @@ export const DashboardScene = () => {
     navigate('CreateList');
   };
 
-  const navigateToItemList = () => {
+  const navigateToItemList = (listId: number) => {
     //@ts-ignore
-    navigate('ItemList');
+    navigate('ItemList', {listId});
   };
 
   return (

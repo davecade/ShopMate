@@ -5,7 +5,7 @@ import {shoppingListsAtom} from '../../state/atoms';
 
 type DashboardContainerProps = {
   navigateToCreateList: () => void;
-  navigateToItemList: () => void;
+  navigateToItemList: (listId: number) => void;
 };
 
 export const DashboardContainer = ({
@@ -19,8 +19,8 @@ export const DashboardContainer = ({
     navigateToCreateList();
   };
 
-  const onPressList = () => {
-    navigateToItemList();
+  const onPressList = (listId: number) => {
+    navigateToItemList(listId);
   };
 
   return (

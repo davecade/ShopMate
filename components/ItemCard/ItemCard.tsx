@@ -3,31 +3,23 @@ import React from 'react';
 import {notStartedColor, styles} from './styles';
 import {ShoppingItem} from '../../types';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import ProgressCircle from '../ProgressCircle/ProgressCircle';
+import {CheckBox} from '../CheckBox/CheckBox';
 
 type ItemCardProps = {
-  title: string;
-  items: ShoppingItem[];
+  item: ShoppingItem;
   onPress: () => void;
 };
 
-export const ItemCard = ({title, items, onPress}: ItemCardProps) => {
-  const totalItems = items?.length || 0;
-  const completedItems = items?.filter(item => item.isBought).length;
-
+export const ItemCard = ({item, onPress}: ItemCardProps) => {
+  const {name, quantity, price, isBought, id} = item;
   return (
     <TouchableOpacity
       style={[styles.card, {borderColor: notStartedColor}]}
-      onPress={onPress}>
+      onPress={() => onPress(id)}>
       <View>
-        <Text style={styles.listName}>{title}</Text>
+        <Text style={styles.listName}>{name}</Text>
       </View>
-      <ProgressCircle
-        total={totalItems}
-        completed={completedItems}
-        radius={25}
-        strokeWidth={5}
-      />
+      <CheckBox isChecked={isBought} />
     </TouchableOpacity>
   );
 };

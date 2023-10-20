@@ -1,31 +1,66 @@
 import React from 'react';
 import {ItemListView} from './view';
-import {useSetRecoilState} from 'recoil';
-import {shoppingListsAtom} from '../../state/atoms';
-import {ShoppingList} from '../../types';
+import {ShoppingItem, ShoppingList} from '../../types';
+import {useShoppingLists} from '../../hooks/useShoppingLists';
 
 type ItemListtContainerProps = {
-  navigateToPreviousPage: () => void;
+  selectedListId: number;
 };
 
 export const ItemListContainer = ({
-  navigateToPreviousPage,
+  selectedListId,
 }: ItemListtContainerProps) => {
-  const setShoppingLists = useSetRecoilState(shoppingListsAtom);
+  const {
+    shoppingLists,
+    setShoppingLists,
+    getShoppingListDetailsById,
+    getShoppingListItemDetails,
+    getShoppingListItemsById,
+  } = useShoppingLists();
 
-  const onPressCreate = (title: string) => {
-    const newShoppingList: ShoppingList = {
-      id: Date.now(),
-      name: title,
-      items: [],
-    };
-    setShoppingLists(prev => [...prev, newShoppingList]);
-    navigateToPreviousPage();
+  const selectedShoppingListDetails =
+    getShoppingListDetailsById(selectedListId);
+  const selectedShoppingListItems = getShoppingListItemsById(selectedListId);
+
+  const onPressItem = (selectedItemId: number) => {
+    const selectedItem = getShoppingListItemDetails(
+      selectedListId,
+      selectedItemId,
+    );
+
+    if (selectedShoppingListDetails && selectedItem) {
+      const updatedItem: ShoppingItem = {
+        ...selectedItem,
+        isBought: !selectedItem.isBought,
+      };
+
+      const updatedItemList = selectedShoppingListItems.map(item => {
+        if (item.id === selectedItemId) {
+          return updatedItem;
+        }
+        return item;
+      });
+
+      const updatedShoppingList: ShoppingList = {
+        ...selectedShoppingListDetails,
+        items: updatedItemList,
+      };
+
+      const updatedShoppingLists = shoppingLists.map(list => {
+        if (list.id === selectedListId) {
+          return updatedShoppingList;
+        }
+        return list;
+      });
+
+      setShoppingLists(updatedShoppingLists);
+    }
   };
 
-  const goBack = () => {
-    navigateToPreviousPage();
-  };
-
-  return <ItemListView goBack={goBack} onPressCreate={onPressCreate} />;
+  return (
+    <ItemListView
+      shoppingList={selectedShoppingListItems}
+      onPress={onPressItem}
+    />
+  );
 };

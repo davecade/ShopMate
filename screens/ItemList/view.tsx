@@ -1,22 +1,29 @@
 import {View} from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {styles} from './styles';
 import {Heading, VStack} from '@gluestack-ui/themed';
 import {ItemCard} from '../../components/ItemCard/ItemCard';
+import {ShoppingItem} from '../../types';
 
 type ItemListViewProps = {
-  goBack: () => void;
-  onPressCreate: (title: string) => void;
+  shoppingList: ShoppingItem[];
+  onPress: (id: number) => void;
 };
 
-export const ItemListView = ({goBack, onPressCreate}: ItemListViewProps) => {
-  const [listNameValue, setListNameValue] = useState('');
-
+export const ItemListView = ({shoppingList, onPress}: ItemListViewProps) => {
   return (
     <View style={styles.container}>
       <VStack space="3xl">
         <Heading style={styles.label}>Shopping List</Heading>
-        <ItemCard title={listNameValue} items={[]} onPress={() => {}} />
+        {shoppingList?.map((item, index) => {
+          return (
+            <ItemCard
+              key={index}
+              item={item}
+              onPress={() => onPress(item.id)}
+            />
+          );
+        })}
       </VStack>
     </View>
   );
