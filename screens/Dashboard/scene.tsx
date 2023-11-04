@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import {DashboardContainer} from './container';
 import {useNavigation} from '@react-navigation/native';
 
@@ -16,9 +16,11 @@ export const DashboardScene = () => {
   };
 
   return (
-    <DashboardContainer
-      navigateToCreateList={navigateToCreateList}
-      navigateToItemList={navigateToItemList}
-    />
+    <Suspense fallback={<div>Loading...</div>}>
+      <DashboardContainer
+        navigateToCreateList={navigateToCreateList}
+        navigateToItemList={navigateToItemList}
+      />
+    </Suspense>
   );
 };

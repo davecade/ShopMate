@@ -21,11 +21,21 @@ export const useShoppingLists = () => {
     );
   };
 
+  const getTotalItemsByListId = (id: number) => {
+    return getShoppingListItemsById(id)?.length || 0;
+  };
+
+  const getTotalBoughtItemsListId = (id: number) => {
+    return getShoppingListItemsById(id)?.filter(item => item.isBought).length;
+  };
+
   return {
     shoppingLists,
     setShoppingLists,
     getShoppingListDetailsById,
     getShoppingListItemsById,
     getShoppingListItemDetails,
+    getTotalItemsByListId,
+    getTotalBoughtItemsListId,
   };
 };

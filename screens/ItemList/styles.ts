@@ -1,11 +1,11 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#131313',
-    padding: 20,
+  titleProgressContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   title: {
     fontSize: 24,
@@ -29,8 +29,6 @@ export const styles = StyleSheet.create({
   },
   label: {
     color: 'white',
-    fontSize: 18,
-    textAlign: 'left',
-    width: '100%',
+    fontSize: 24,
   },
 });

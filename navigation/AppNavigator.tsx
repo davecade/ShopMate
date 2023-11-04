@@ -43,7 +43,7 @@ export const AppNavigator = () => {
             headerShown: true,
             headerBackTitleVisible: false,
             cardStyleInterpolator:
-              CardStyleInterpolators.forModalPresentationIOS, // for modal presentation style
+              CardStyleInterpolators.forModalPresentationIOS,
           }}
         />
       </Stack.Navigator>

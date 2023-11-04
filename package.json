@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "react-native run-ios --simulator='iPhone 14 Pro Max'",
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest"
@@ -14,6 +14,7 @@
     "@gluestack-ui/themed": "^1.0.4",
     "@react-navigation/native": "^6.1.8",
     "@react-navigation/stack": "^6.3.18",
+    "axios": "^1.6.0",
     "react": "18.2.0",
     "react-native": "0.72.5",
     "react-native-gesture-handler": "^2.13.1",

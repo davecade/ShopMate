@@ -1,9 +1,10 @@
 import {View, Text} from 'react-native';
 import React from 'react';
-import {notStartedColor, styles} from './styles';
+import {styles} from './styles';
 import {ShoppingItem} from '../../types';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import ProgressCircle from '../ProgressCircle/ProgressCircle';
+import {ProgressCircle} from '../ProgressCircle/ProgressCircle';
+import {notStartedColor} from '../../styles/globalStyles';
 
 type ListCardProps = {
   title: string;
@@ -12,7 +13,7 @@ type ListCardProps = {
 };
 
 export const ListCard = ({title, items, onPress}: ListCardProps) => {
-  const totalItems = items?.length || 0;
+  const totalItems = items?.length;
   const completedItems = items?.filter(item => item.isBought).length;
 
   return (

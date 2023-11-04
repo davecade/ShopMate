@@ -16,11 +16,15 @@ export const ItemListContainer = ({
     getShoppingListDetailsById,
     getShoppingListItemDetails,
     getShoppingListItemsById,
+    getTotalItemsByListId,
+    getTotalBoughtItemsListId,
   } = useShoppingLists();
 
   const selectedShoppingListDetails =
     getShoppingListDetailsById(selectedListId);
   const selectedShoppingListItems = getShoppingListItemsById(selectedListId);
+  const totalItems = getTotalItemsByListId(selectedListId);
+  const completedItems = getTotalBoughtItemsListId(selectedListId);
 
   const onPressItem = (selectedItemId: number) => {
     const selectedItem = getShoppingListItemDetails(
@@ -59,7 +63,10 @@ export const ItemListContainer = ({
 
   return (
     <ItemListView
-      shoppingList={selectedShoppingListItems}
+      listName={selectedShoppingListDetails?.name || ''}
+      totalItems={totalItems}
+      totalCompletedItems={completedItems}
+      listItems={selectedShoppingListItems}
       onPress={onPressItem}
     />
   );

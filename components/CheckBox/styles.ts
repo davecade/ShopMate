@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {green} from '../../styles/globalStyles';
+import {completedColor} from '../../styles/globalStyles';
 
 export const styles = StyleSheet.create({
   checkboxUnchecked: {
@@ -17,13 +17,13 @@ export const styles = StyleSheet.create({
     height: 30,
     borderRadius: 50,
     borderWidth: 3,
-    borderColor: green,
+    borderColor: completedColor,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'black',
   },
   checked: {
-    color: green,
+    color: completedColor,
     fontWeight: 'bold',
     fontSize: 20,
   },

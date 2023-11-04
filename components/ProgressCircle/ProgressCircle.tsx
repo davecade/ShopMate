@@ -5,7 +5,7 @@ import {
   completedColor,
   inProgressColor,
   notStartedColor,
-} from '../ListCard/styles';
+} from '../../styles/globalStyles';
 
 type ProgressCircleProps = {
   total: number;
@@ -14,7 +14,7 @@ type ProgressCircleProps = {
   strokeWidth: number;
 };
 
-const ProgressCircle = ({
+export const ProgressCircle = ({
   total,
   completed,
   radius,
@@ -75,5 +75,3 @@ const ProgressCircle = ({
     </View>
   );
 };
-
-export default ProgressCircle;
