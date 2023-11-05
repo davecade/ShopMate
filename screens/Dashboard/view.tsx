@@ -9,7 +9,7 @@ import {ShoppingList} from '../../types';
 
 type DashboardViewProps = {
   onCreateList: () => void;
-  onPressList: (listId: number) => void;
+  onPressList: (listId: string) => void;
   image: number;
   shoppingLists: ShoppingList[];
 };
@@ -59,7 +59,7 @@ export const DashboardView = ({
                     key={index}
                     title={list.name}
                     items={list.items}
-                    onPress={() => onPressList(list.id)}
+                    onPress={() => onPressList(list._id)}
                   />
                 );
               })}

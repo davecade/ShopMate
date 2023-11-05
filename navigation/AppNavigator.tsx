@@ -8,9 +8,18 @@ import {
 import Login from '../screens/Login';
 import Dashboard from '../screens/Dashboard';
 import CreateList from '../screens/CreateList';
-import ItemListScene from '../screens/ItemList';
+import ItemList from '../screens/ItemList';
 
-const Stack = createStackNavigator();
+type RootStackParamList = {
+  Login: undefined;
+  Dashboard: undefined;
+  CreateList: undefined;
+  ItemList: {
+    listId: string;
+  };
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 export const AppNavigator = () => {
   return (
@@ -38,7 +47,7 @@ export const AppNavigator = () => {
         />
         <Stack.Screen
           name="ItemList"
-          component={ItemListScene}
+          component={ItemList}
           options={{
             headerShown: true,
             headerBackTitleVisible: false,

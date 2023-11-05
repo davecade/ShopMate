@@ -4,12 +4,12 @@ import {ItemListContainer} from './container';
 type RouteParams = {
   route: {
     params: {
-      listId: number;
+      listId: string;
     };
   };
 };
 
 export const ItemListScene = ({route}: RouteParams) => {
   const {listId} = route.params;
-  return <ItemListContainer selectedListId={listId} />;
+  return <ItemListContainer preselectedListId={listId} />;
 };

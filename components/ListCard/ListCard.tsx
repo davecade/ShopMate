@@ -14,7 +14,7 @@ type ListCardProps = {
 
 export const ListCard = ({title, items, onPress}: ListCardProps) => {
   const totalItems = items?.length;
-  const completedItems = items?.filter(item => item.isBought).length;
+  const completedItems = items?.filter(item => item.isBought)?.length;
 
   return (
     <TouchableOpacity

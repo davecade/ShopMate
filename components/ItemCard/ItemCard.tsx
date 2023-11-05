@@ -4,7 +4,7 @@ import {styles} from './styles';
 import {ShoppingItem} from '../../types';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {CheckBox} from '../CheckBox/CheckBox';
-import {HStack, Text, VStack} from '@gluestack-ui/themed';
+import {HStack, Text} from '@gluestack-ui/themed';
 
 type ItemCardProps = {
   item: ShoppingItem;
@@ -12,6 +12,7 @@ type ItemCardProps = {
 };
 
 export const ItemCard = ({item, onPress}: ItemCardProps) => {
+  console.log('item', item);
   const {name, quantity, price, isBought, id} = item;
 
   return (

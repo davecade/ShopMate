@@ -1,12 +1,10 @@
 import {atom} from 'recoil';
-import {shoppingListsData} from '../data';
-import {ShoppingList} from '../types';
 
 const keys = {
-  shoppingLists: '@ShopMate_shoppingLists',
+  shoppingLists: '@ShopMate_selectedListId',
 };
 
-export const shoppingListsAtom = atom<ShoppingList[]>({
+export const selectedListIdAtom = atom<string>({
   key: keys.shoppingLists,
-  default: shoppingListsData,
+  default: '',
 });

@@ -1,25 +1,25 @@
 import React from 'react';
 import {DashboardView} from './view';
 import {useRecoilValue} from 'recoil';
-import {shoppingListsAtom} from '../../state/atoms';
+import {allListsQuery} from '../../state/selectors';
 
 type DashboardContainerProps = {
   navigateToCreateList: () => void;
-  navigateToItemList: (listId: number) => void;
+  navigateToItemList: (listId: string) => void;
 };
 
 export const DashboardContainer = ({
   navigateToCreateList,
   navigateToItemList,
 }: DashboardContainerProps) => {
-  const shoppingLists = useRecoilValue(shoppingListsAtom);
+  const shoppingLists = useRecoilValue(allListsQuery);
   const trolleyImage = require('../../assets/images/trolley.png');
 
   const onCreateList = () => {
     navigateToCreateList();
   };
 
-  const onPressList = (listId: number) => {
+  const onPressList = (listId: string) => {
     navigateToItemList(listId);
   };
 
@@ -28,7 +28,7 @@ export const DashboardContainer = ({
       onCreateList={onCreateList}
       onPressList={onPressList}
       image={trolleyImage}
-      shoppingLists={shoppingLists}
+      shoppingLists={shoppingLists ? shoppingLists : []}
     />
   );
 };

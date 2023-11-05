@@ -1,4 +1,4 @@
-import React, {Suspense} from 'react';
+import React from 'react';
 import {DashboardContainer} from './container';
 import {useNavigation} from '@react-navigation/native';
 
@@ -10,17 +10,15 @@ export const DashboardScene = () => {
     navigate('CreateList');
   };
 
-  const navigateToItemList = (listId: number) => {
+  const navigateToItemList = (listId: string) => {
     //@ts-ignore
     navigate('ItemList', {listId});
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <DashboardContainer
-        navigateToCreateList={navigateToCreateList}
-        navigateToItemList={navigateToItemList}
-      />
-    </Suspense>
+    <DashboardContainer
+      navigateToCreateList={navigateToCreateList}
+      navigateToItemList={navigateToItemList}
+    />
   );
 };

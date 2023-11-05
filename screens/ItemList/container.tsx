@@ -1,69 +1,58 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {ItemListView} from './view';
-import {ShoppingItem, ShoppingList} from '../../types';
-import {useShoppingLists} from '../../hooks/useShoppingLists';
+import {useRecoilValue, useRecoilState} from 'recoil';
+import {selectedListIdAtom} from '../../state/atoms';
+import {ShoppingList} from '../../types';
+import {oneListQuery} from '../../state/selectors';
 
 type ItemListtContainerProps = {
-  selectedListId: number;
+  preselectedListId: string;
 };
 
 export const ItemListContainer = ({
-  selectedListId,
+  preselectedListId,
 }: ItemListtContainerProps) => {
-  const {
-    shoppingLists,
-    setShoppingLists,
-    getShoppingListDetailsById,
-    getShoppingListItemDetails,
-    getShoppingListItemsById,
-    getTotalItemsByListId,
-    getTotalBoughtItemsListId,
-  } = useShoppingLists();
+  const [selectedListId, setSelectedListId] =
+    useRecoilState<string>(selectedListIdAtom);
+  const selectedListData = useRecoilValue<ShoppingList>(
+    oneListQuery(selectedListId),
+  );
+  const [selectedListState, setSelectedListState] =
+    useState<ShoppingList>(selectedListData);
+  const selectedShoppingListItems = selectedListState?.items || [];
+  const completedItems =
+    selectedShoppingListItems?.filter(item => item.isBought)?.length || 0;
+  const totalItems = selectedShoppingListItems?.length || 0;
 
-  const selectedShoppingListDetails =
-    getShoppingListDetailsById(selectedListId);
-  const selectedShoppingListItems = getShoppingListItemsById(selectedListId);
-  const totalItems = getTotalItemsByListId(selectedListId);
-  const completedItems = getTotalBoughtItemsListId(selectedListId);
-
-  const onPressItem = (selectedItemId: number) => {
-    const selectedItem = getShoppingListItemDetails(
-      selectedListId,
-      selectedItemId,
-    );
-
-    if (selectedShoppingListDetails && selectedItem) {
-      const updatedItem: ShoppingItem = {
-        ...selectedItem,
-        isBought: !selectedItem.isBought,
-      };
-
-      const updatedItemList = selectedShoppingListItems.map(item => {
-        if (item.id === selectedItemId) {
-          return updatedItem;
+  const onPressItem = (selectedItemId: string) => {
+    setSelectedListState(prevState => {
+      const updatedItems = prevState.items.map(item => {
+        if (item._id === selectedItemId) {
+          return {
+            ...item,
+            isBought: !item.isBought,
+          };
         }
         return item;
       });
-
-      const updatedShoppingList: ShoppingList = {
-        ...selectedShoppingListDetails,
-        items: updatedItemList,
+      return {
+        ...prevState,
+        items: updatedItems,
       };
-
-      const updatedShoppingLists = shoppingLists.map(list => {
-        if (list.id === selectedListId) {
-          return updatedShoppingList;
-        }
-        return list;
-      });
-
-      setShoppingLists(updatedShoppingLists);
-    }
+    });
   };
+
+  useEffect(() => {
+    setSelectedListId(preselectedListId);
+  }, [setSelectedListId, preselectedListId]);
+
+  useEffect(() => {
+    setSelectedListState(selectedListData);
+  }, [selectedListData]);
 
   return (
     <ItemListView
-      listName={selectedShoppingListDetails?.name || ''}
+      listName={selectedListState?.name || ''}
       totalItems={totalItems}
       totalCompletedItems={completedItems}
       listItems={selectedShoppingListItems}

@@ -1,11 +1,11 @@
 export type ShoppingList = {
-  id: number;
+  _id: string;
   name: string;
   items: ShoppingItem[];
 };
 
 export type ShoppingItem = {
-  id: number;
+  _id: string;
   name: string;
   quantity: number;
   price: number;

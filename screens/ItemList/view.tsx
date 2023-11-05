@@ -12,7 +12,7 @@ type ItemListViewProps = {
   totalItems: number;
   totalCompletedItems: number;
   listItems: ShoppingItem[];
-  onPress: (id: number) => void;
+  onPress: (id: string) => void;
 };
 
 export const ItemListView = ({
@@ -36,12 +36,12 @@ export const ItemListView = ({
         </VStack>
         <ScrollView style={{flex: 1}}>
           <VStack space="sm">
-            {listItems?.map((item, index) => {
+            {listItems?.map(item => {
               return (
                 <ItemCard
-                  key={index}
+                  key={item._id}
                   item={item}
-                  onPress={() => onPress(item.id)}
+                  onPress={() => onPress(item._id)}
                 />
               );
             })}
