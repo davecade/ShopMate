@@ -3,7 +3,7 @@ import {ItemListView} from './view';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import {selectedListIdAtom} from '../../state/atoms';
 import {ShoppingList} from '../../types';
-import {oneListQuery} from '../../state/selectors';
+import {getListByIdQuery} from '../../state/selectors';
 
 type ItemListtContainerProps = {
   preselectedListId: string;
@@ -15,7 +15,7 @@ export const ItemListContainer = ({
   const [selectedListId, setSelectedListId] =
     useRecoilState<string>(selectedListIdAtom);
   const selectedListData = useRecoilValue<ShoppingList>(
-    oneListQuery(selectedListId),
+    getListByIdQuery(selectedListId),
   );
   const [selectedListState, setSelectedListState] =
     useState<ShoppingList>(selectedListData);
