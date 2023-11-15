@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
 import React from 'react';
 import {styles} from './styles';
 import {Heading, ScrollView, VStack} from '@gluestack-ui/themed';
@@ -6,13 +6,18 @@ import {ItemCard} from '../../components/ItemCard/ItemCard';
 import {ShoppingItem} from '../../types';
 import {ProgressCircle} from '../../components/ProgressCircle/ProgressCircle';
 import {globalStyles} from './../../styles/globalStyles';
+import {Button} from '../../components/Button/Button';
+import {ImageWithGlow} from '../../components/ImageWithGlow/ImageWithGlow';
 
 type ItemListViewProps = {
   listName: string;
   totalItems: number;
   totalCompletedItems: number;
   listItems: ShoppingItem[];
-  onPress: (id: string) => void;
+  image: number;
+  onPressItem: (id: string | undefined) => void;
+  onDone: () => void;
+  navigateToCreateItem: () => void;
 };
 
 export const ItemListView = ({
@@ -20,8 +25,14 @@ export const ItemListView = ({
   totalItems,
   totalCompletedItems,
   listItems,
-  onPress,
+  image,
+  onPressItem,
+  onDone,
+  navigateToCreateItem,
 }: ItemListViewProps) => {
+  const hasItems = listItems?.length > 0;
+  const isEmpty = !hasItems;
+
   return (
     <View style={globalStyles.container}>
       <VStack space="sm">
@@ -34,19 +45,41 @@ export const ItemListView = ({
             strokeWidth={5}
           />
         </VStack>
-        <ScrollView style={{flex: 1}}>
-          <VStack space="sm">
-            {listItems?.map(item => {
-              return (
-                <ItemCard
-                  key={item._id}
-                  item={item}
-                  onPress={() => onPress(item._id)}
-                />
-              );
-            })}
-          </VStack>
-        </ScrollView>
+        {isEmpty && (
+          <View style={[globalStyles.flex, styles.emptyTextContainer]}>
+            <View style={styles.imageContainer}>
+              <ImageWithGlow image={image} size="lg" />
+            </View>
+            <Text style={styles.emptyText}>Your list is empty</Text>
+            <Text style={styles.emptyText}>
+              Click the button below to add an item now
+            </Text>
+            <View style={styles.buttonContainer}>
+              <Button text={'Add'} onPress={navigateToCreateItem} />
+            </View>
+          </View>
+        )}
+        {hasItems && (
+          <>
+            <ScrollView style={globalStyles.flex}>
+              <VStack space="sm">
+                {listItems?.map(item => {
+                  return (
+                    <ItemCard
+                      key={item._id}
+                      item={item}
+                      onPress={() => onPressItem(item._id)}
+                    />
+                  );
+                })}
+              </VStack>
+            </ScrollView>
+            <View style={styles.buttonContainer}>
+              <Button text={'Done'} onPress={onDone} />
+              <Button text={'Add'} onPress={navigateToCreateItem} />
+            </View>
+          </>
+        )}
       </VStack>
     </View>
   );

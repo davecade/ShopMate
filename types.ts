@@ -7,7 +7,7 @@ export type ShoppingList = {
 export type ShoppingItem = {
   _id?: string;
   name: string;
-  quantity: number;
-  price: number;
+  quantity?: number;
+  price?: number;
   isBought: boolean;
 };

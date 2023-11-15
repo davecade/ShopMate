@@ -9,7 +9,7 @@ import {ShoppingList} from '../../types';
 
 type DashboardViewProps = {
   onCreateList: () => void;
-  onPressList: (listId: string) => void;
+  onPressList: (listId: string | undefined) => void;
   image: number;
   shoppingLists: ShoppingList[];
 };

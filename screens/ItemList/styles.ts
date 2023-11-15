@@ -23,12 +23,39 @@ export const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    color: '#D2C2C2',
+    justifyContent: 'center',
   },
   label: {
     color: 'white',
     fontSize: 24,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#131313',
+    padding: 20,
+    justifyContent: 'center',
+  },
+  shoppingTitle: {
+    fontSize: 24,
+    marginBottom: 50,
+    textAlign: 'center',
+    color: 'white',
+  },
+  shoppingCartContainer: {
+    alignItems: 'center',
+    marginBottom: 50,
+  },
+  imageContainer: {
+    marginBottom: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyTextContainer: {
+    paddingTop: 130,
+  },
+  emptyText: {
+    color: 'white',
+    textAlign: 'center',
+    marginVertical: 5,
   },
 });

@@ -1,17 +1,25 @@
 import React, {useEffect, useState} from 'react';
 import {ItemListView} from './view';
-import {useRecoilValue, useRecoilState} from 'recoil';
+import {useRecoilValue, useRecoilState, useSetRecoilState} from 'recoil';
 import {selectedListIdAtom} from '../../state/atoms';
 import {ShoppingList} from '../../types';
-import {getListByIdQuery} from '../../state/selectors';
+import {getAllListsQuery, getListByIdQuery} from '../../state/selectors';
+import {updateListAsync} from '../../services/api';
 
 type ItemListtContainerProps = {
   preselectedListId: string;
+  navigateToCreateItem: () => void;
+  navigateToPreviousPage: () => void;
 };
+
+const emptyImage = require('../../assets/images/empty.png');
 
 export const ItemListContainer = ({
   preselectedListId,
+  navigateToCreateItem,
+  navigateToPreviousPage,
 }: ItemListtContainerProps) => {
+  const setShoppingLists = useSetRecoilState<ShoppingList[]>(getAllListsQuery);
   const [selectedListId, setSelectedListId] =
     useRecoilState<string>(selectedListIdAtom);
   const selectedListData = useRecoilValue<ShoppingList>(
@@ -24,7 +32,7 @@ export const ItemListContainer = ({
     selectedShoppingListItems?.filter(item => item.isBought)?.length || 0;
   const totalItems = selectedShoppingListItems?.length || 0;
 
-  const onPressItem = (selectedItemId: string) => {
+  const onPressItem = (selectedItemId: string = '') => {
     setSelectedListState(prevState => {
       const updatedItems = prevState.items.map(item => {
         if (item._id === selectedItemId) {
@@ -42,6 +50,23 @@ export const ItemListContainer = ({
     });
   };
 
+  const onDone = async () => {
+    const updatedListResponse = await updateListAsync(selectedListState);
+
+    if (updatedListResponse) {
+      setShoppingLists(prev => {
+        const newList = prev.find(list => list._id === selectedListId);
+        if (newList) {
+          return prev.map(list =>
+            list._id === selectedListId ? updatedListResponse : list,
+          );
+        }
+        return prev;
+      });
+    }
+    navigateToPreviousPage();
+  };
+
   useEffect(() => {
     setSelectedListId(preselectedListId);
   }, [setSelectedListId, preselectedListId]);
@@ -56,7 +81,10 @@ export const ItemListContainer = ({
       totalItems={totalItems}
       totalCompletedItems={completedItems}
       listItems={selectedShoppingListItems}
-      onPress={onPressItem}
+      image={emptyImage}
+      onPressItem={onPressItem}
+      onDone={onDone}
+      navigateToCreateItem={navigateToCreateItem}
     />
   );
 };

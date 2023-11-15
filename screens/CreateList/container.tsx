@@ -2,7 +2,7 @@ import React from 'react';
 import {CreateListView} from './view';
 import {useSetRecoilState} from 'recoil';
 import {ShoppingList} from '../../types';
-import {createListQuery} from '../../services/api';
+import {createListAsync} from '../../services/api';
 import {getAllListsQuery} from '../../state/selectors';
 
 type CreateListContainerProps = {
@@ -20,7 +20,7 @@ export const CreateListContainer = ({
       items: [],
     };
 
-    const newListResponse = await createListQuery(newListData);
+    const newListResponse = await createListAsync(newListData);
     setShoppingLists(prevLists => [...prevLists, newListResponse]);
     navigateToPreviousPage();
   };

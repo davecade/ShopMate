@@ -1,9 +1,10 @@
 import {atom} from 'recoil';
-import {ShoppingList} from '../types';
+import {ShoppingItem, ShoppingList} from '../types';
 
 const keys = {
   allLists: '@ShopMate_allLists',
   selectedListId: '@ShopMate_selectedListId',
+  allItems: 'ShopMate_allItems',
 };
 
 export const allListsAtom = atom<ShoppingList[]>({
@@ -14,4 +15,9 @@ export const allListsAtom = atom<ShoppingList[]>({
 export const selectedListIdAtom = atom<string>({
   key: keys.selectedListId,
   default: '',
+});
+
+export const allItemsAtom = atom<ShoppingItem[]>({
+  key: keys.allItems,
+  default: [],
 });

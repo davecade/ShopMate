@@ -9,6 +9,7 @@ import Login from '../screens/Login';
 import Dashboard from '../screens/Dashboard';
 import CreateList from '../screens/CreateList';
 import ItemList from '../screens/ItemList';
+import CreateItem from '../screens/CreateItem';
 
 type RootStackParamList = {
   Login: undefined;
@@ -17,6 +18,7 @@ type RootStackParamList = {
   ItemList: {
     listId: string;
   };
+  CreateItem: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -48,6 +50,16 @@ export const AppNavigator = () => {
         <Stack.Screen
           name="ItemList"
           component={ItemList}
+          options={{
+            headerShown: true,
+            headerBackTitleVisible: false,
+            cardStyleInterpolator:
+              CardStyleInterpolators.forModalPresentationIOS,
+          }}
+        />
+        <Stack.Screen
+          name="CreateItem"
+          component={CreateItem}
           options={{
             headerShown: true,
             headerBackTitleVisible: false,

@@ -12,4 +12,7 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: '#131313',
     padding: 10,
   },
+  flex: {
+    flex: 1,
+  },
 });
