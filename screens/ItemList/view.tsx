@@ -14,6 +14,7 @@ type ItemListViewProps = {
   totalItems: number;
   totalCompletedItems: number;
   listItems: ShoppingItem[];
+  isLoading: boolean;
   image: number;
   onPressItem: (id: string | undefined) => void;
   onDone: () => void;
@@ -25,6 +26,7 @@ export const ItemListView = ({
   totalItems,
   totalCompletedItems,
   listItems,
+  isLoading,
   image,
   onPressItem,
   onDone,
@@ -45,7 +47,11 @@ export const ItemListView = ({
             strokeWidth={5}
           />
         </VStack>
-        {isEmpty && (
+        {isLoading ? (
+          <View style={[globalStyles.flex, styles.emptyTextContainer]}>
+            <Text style={styles.emptyText}>Loading...</Text>
+          </View>
+        ) : isEmpty ? (
           <View style={[globalStyles.flex, styles.emptyTextContainer]}>
             <View style={styles.imageContainer}>
               <ImageWithGlow image={image} size="lg" />
@@ -58,8 +64,7 @@ export const ItemListView = ({
               <Button text={'Add'} onPress={navigateToCreateItem} />
             </View>
           </View>
-        )}
-        {hasItems && (
+        ) : (
           <>
             <ScrollView style={globalStyles.flex}>
               <VStack space="sm">
@@ -75,7 +80,7 @@ export const ItemListView = ({
               </VStack>
             </ScrollView>
             <View style={styles.buttonContainer}>
-              <Button text={'Done'} onPress={onDone} />
+              <Button text={'Save'} onPress={onDone} />
               <Button text={'Add'} onPress={navigateToCreateItem} />
             </View>
           </>

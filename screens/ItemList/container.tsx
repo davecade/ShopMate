@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {ItemListView} from './view';
-import {useRecoilValue, useRecoilState, useSetRecoilState} from 'recoil';
+import {
+  useRecoilState,
+  useSetRecoilState,
+  useRecoilValueLoadable,
+} from 'recoil';
 import {selectedListIdAtom} from '../../state/atoms';
 import {ShoppingList} from '../../types';
 import {getAllListsQuery, getListByIdQuery} from '../../state/selectors';
@@ -22,9 +26,14 @@ export const ItemListContainer = ({
   const setShoppingLists = useSetRecoilState<ShoppingList[]>(getAllListsQuery);
   const [selectedListId, setSelectedListId] =
     useRecoilState<string>(selectedListIdAtom);
-  const selectedListData = useRecoilValue<ShoppingList>(
+  const selectedListLoadable = useRecoilValueLoadable(
     getListByIdQuery(selectedListId),
   );
+
+  const isLoading = selectedListLoadable.state === 'loading';
+
+  const selectedListData = selectedListLoadable.contents;
+
   const [selectedListState, setSelectedListState] =
     useState<ShoppingList>(selectedListData);
   const selectedShoppingListItems = selectedListState?.items || [];
@@ -81,6 +90,7 @@ export const ItemListContainer = ({
       totalItems={totalItems}
       totalCompletedItems={completedItems}
       listItems={selectedShoppingListItems}
+      isLoading={isLoading}
       image={emptyImage}
       onPressItem={onPressItem}
       onDone={onDone}

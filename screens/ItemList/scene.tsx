@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ItemListContainer} from './container';
 import {useNavigation} from '@react-navigation/native';
+import {HeaderBackButton} from '@react-navigation/elements';
+import {useSetRecoilState} from 'recoil';
+import {selectedListIdAtom} from '../../state/atoms';
 
 type RouteParams = {
   route: {
@@ -12,7 +15,25 @@ type RouteParams = {
 
 export const ItemListScene = ({route}: RouteParams) => {
   const {listId} = route.params;
-  const {navigate, goBack} = useNavigation();
+  const {navigate, goBack, setOptions} = useNavigation();
+  const setSelectedListId = useSetRecoilState<string>(selectedListIdAtom);
+
+  useEffect(() => {
+    const headerLeft = () => (
+      <HeaderBackButton
+        onPress={() => {
+          goBack();
+          setSelectedListId('');
+        }}
+      />
+    );
+
+    // This setOptions only applies to this component
+    setOptions({
+      headerShown: true,
+      headerLeft,
+    });
+  }, [goBack, setOptions, setSelectedListId]);
 
   const navigateToCreateItem = () => {
     //@ts-ignore
@@ -21,6 +42,7 @@ export const ItemListScene = ({route}: RouteParams) => {
 
   const navigateToPreviousPage = () => {
     goBack();
+    setSelectedListId('');
   };
 
   return (
