@@ -10,6 +10,16 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1.5,
   },
+  titleAndProcessContainer: {
+    flex: 1,
+  },
+  cardTouchable: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: 20,
+  },
   listName: {
     fontSize: 20,
     fontWeight: 'bold',

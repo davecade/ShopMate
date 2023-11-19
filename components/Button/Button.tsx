@@ -6,9 +6,15 @@ type ButtonProps = {
   text: string;
   onPress: () => void;
   type?: 'primary' | 'secondary' | 'grey';
+  style?: {};
 };
 
-export const Button = ({text, onPress, type = 'primary'}: ButtonProps) => {
+export const Button = ({
+  text,
+  onPress,
+  type = 'primary',
+  style = {},
+}: ButtonProps) => {
   const [buttonStyles, setButtonStyles] = useState<{}>(styles.primaryButton);
   const [buttonTextStyles, setButtonTextStyles] = useState<{}>(
     styles.primaryButtonText,
@@ -39,7 +45,7 @@ export const Button = ({text, onPress, type = 'primary'}: ButtonProps) => {
   }, [type]);
 
   return (
-    <TouchableOpacity style={buttonStyles} onPress={onPress}>
+    <TouchableOpacity style={[buttonStyles, style]} onPress={onPress}>
       <Text style={buttonTextStyles}>{text}</Text>
     </TouchableOpacity>
   );

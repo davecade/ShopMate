@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {CreateItemView} from './view';
 import {ShoppingItem, ShoppingList} from '../../types';
 import {addItemAsync} from '../../services/api';
-import {useRecoilValue, useSetRecoilState} from 'recoil';
+import {useRecoilState, useRecoilValue} from 'recoil';
 import {selectedListIdAtom} from '../../state/atoms';
-import {getAllListsQuery} from '../../state/selectors';
+import {getAllItemsQuery, getAllListsQuery} from '../../state/selectors';
 
 type CreateItemContainerProps = {
   navigateToPreviousPage: () => void;
@@ -14,7 +14,23 @@ export const CreateItemContainer = ({
   navigateToPreviousPage,
 }: CreateItemContainerProps) => {
   const selectedListId = useRecoilValue<string>(selectedListIdAtom);
-  const setShoppingLists = useSetRecoilState<ShoppingList[]>(getAllListsQuery);
+  const [shoppingLists, setShoppingLists] =
+    useRecoilState<ShoppingList[]>(getAllListsQuery);
+  const allShoppingItems = useRecoilValue<ShoppingItem[]>(getAllItemsQuery);
+
+  const selectableItems = useMemo(() => {
+    const currentList = shoppingLists.find(list => list._id === selectedListId);
+
+    if (currentList?._id) {
+      return allShoppingItems.filter(item => {
+        if (!currentList) {
+          return false;
+        }
+        return !currentList.items.some(listItem => listItem._id === item._id);
+      });
+    }
+    return [];
+  }, [shoppingLists, allShoppingItems, selectedListId]);
 
   const onPressAdd = async (item: ShoppingItem) => {
     const newItemData: ShoppingItem = {
@@ -25,7 +41,7 @@ export const CreateItemContainer = ({
 
     const newListResponse = await addItemAsync(selectedListId, newItemData);
 
-    if (newListResponse) {
+    if (newItemData) {
       setShoppingLists(prev => {
         const newList = prev.find(list => list._id === selectedListId);
         if (newList) {
@@ -39,5 +55,7 @@ export const CreateItemContainer = ({
     navigateToPreviousPage();
   };
 
-  return <CreateItemView onPressAdd={onPressAdd} />;
+  return (
+    <CreateItemView selectableItems={selectableItems} onPressAdd={onPressAdd} />
+  );
 };

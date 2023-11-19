@@ -55,6 +55,16 @@ export const updateListAsync = async (updatedList: ShoppingList) => {
   }
 };
 
+export const deleteListAsync = async (listId: string) => {
+  try {
+    const response = await api.delete(`/lists/${listId}`);
+    return response.data;
+  } catch (error) {
+    console.log('deleteListAsync: ', error);
+    throw error;
+  }
+};
+
 export const addItemAsync = async (listId: string, newItem: ShoppingItem) => {
   try {
     const response = await api.post(`/lists/${listId}/items`, newItem);

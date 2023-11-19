@@ -6,10 +6,17 @@ import {ImageWithGlow} from '../../components/ImageWithGlow/ImageWithGlow';
 import {Heading, VStack, ScrollView} from '@gluestack-ui/themed';
 import {ListCard} from '../../components/ListCard/ListCard';
 import {ShoppingList} from '../../types';
+import {Alert} from '../../components/Alert/Alert';
 
 type DashboardViewProps = {
   onCreateList: () => void;
   onPressList: (listId: string | undefined) => void;
+  onDeleteList: (listId: string | undefined) => void;
+  setShowDeleteDialog: (show: boolean) => void;
+  onCloseDeleteDialog: () => void;
+  setSelectedListIdToDelete: (id: string | undefined) => void;
+  showDeleteDialog: boolean;
+  selectedListIdToDelete: string | undefined;
   image: number;
   shoppingLists: ShoppingList[];
 };
@@ -17,6 +24,13 @@ type DashboardViewProps = {
 export const DashboardView = ({
   onCreateList,
   onPressList,
+  onDeleteList,
+  setShowDeleteDialog,
+  onCloseDeleteDialog,
+  setSelectedListIdToDelete,
+
+  showDeleteDialog,
+  selectedListIdToDelete,
   image,
   shoppingLists,
 }: DashboardViewProps) => {
@@ -60,6 +74,10 @@ export const DashboardView = ({
                     title={list.name}
                     items={list.items}
                     onPress={() => onPressList(list._id)}
+                    onDelete={() => {
+                      setSelectedListIdToDelete(list._id);
+                      setShowDeleteDialog(true);
+                    }}
                   />
                 );
               })}
@@ -74,6 +92,14 @@ export const DashboardView = ({
           </View>
         </>
       )}
+      <Alert
+        showDialog={showDeleteDialog}
+        title={'DELETE'}
+        message={'Are you sure you want to delete this List?'}
+        buttonActionTitle={'Delete'}
+        onAction={() => onDeleteList(selectedListIdToDelete)}
+        onClose={onCloseDeleteDialog}
+      />
     </View>
   );
 };

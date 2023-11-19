@@ -14,6 +14,9 @@ type ItemListtContainerProps = {
   preselectedListId: string;
   navigateToCreateItem: () => void;
   navigateToPreviousPage: () => void;
+  setIsDirty: (isDirty: boolean) => void;
+  showDiscardDialog: boolean;
+  setShowDiscardDialog: (show: boolean) => void;
 };
 
 const emptyImage = require('../../assets/images/empty.png');
@@ -22,6 +25,9 @@ export const ItemListContainer = ({
   preselectedListId,
   navigateToCreateItem,
   navigateToPreviousPage,
+  setIsDirty,
+  showDiscardDialog,
+  setShowDiscardDialog,
 }: ItemListtContainerProps) => {
   const setShoppingLists = useSetRecoilState<ShoppingList[]>(getAllListsQuery);
   const [selectedListId, setSelectedListId] =
@@ -29,11 +35,8 @@ export const ItemListContainer = ({
   const selectedListLoadable = useRecoilValueLoadable(
     getListByIdQuery(selectedListId),
   );
-
   const isLoading = selectedListLoadable.state === 'loading';
-
   const selectedListData = selectedListLoadable.contents;
-
   const [selectedListState, setSelectedListState] =
     useState<ShoppingList>(selectedListData);
   const selectedShoppingListItems = selectedListState?.items || [];
@@ -57,9 +60,10 @@ export const ItemListContainer = ({
         items: updatedItems,
       };
     });
+    setIsDirty(true);
   };
 
-  const onDone = async () => {
+  const saveChanges = async () => {
     const updatedListResponse = await updateListAsync(selectedListState);
 
     if (updatedListResponse) {
@@ -84,6 +88,13 @@ export const ItemListContainer = ({
     setSelectedListState(selectedListData);
   }, [selectedListData]);
 
+  const discardChanges = () => {
+    setSelectedListState(selectedListData);
+    setIsDirty(false);
+    setShowDiscardDialog(false);
+    navigateToPreviousPage();
+  };
+
   return (
     <ItemListView
       listName={selectedListState?.name || ''}
@@ -92,8 +103,11 @@ export const ItemListContainer = ({
       listItems={selectedShoppingListItems}
       isLoading={isLoading}
       image={emptyImage}
+      showDiscardDialog={showDiscardDialog}
+      setShowDiscardDialog={setShowDiscardDialog}
       onPressItem={onPressItem}
-      onDone={onDone}
+      saveChanges={saveChanges}
+      discardChanges={discardChanges}
       navigateToCreateItem={navigateToCreateItem}
     />
   );

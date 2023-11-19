@@ -8,6 +8,9 @@ import {ProgressCircle} from '../../components/ProgressCircle/ProgressCircle';
 import {globalStyles} from './../../styles/globalStyles';
 import {Button} from '../../components/Button/Button';
 import {ImageWithGlow} from '../../components/ImageWithGlow/ImageWithGlow';
+import {Alert} from '../../components/Alert/Alert';
+import AddButton from '../../components/AddButton/AddButton';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 type ItemListViewProps = {
   listName: string;
@@ -16,8 +19,11 @@ type ItemListViewProps = {
   listItems: ShoppingItem[];
   isLoading: boolean;
   image: number;
+  showDiscardDialog: boolean;
+  setShowDiscardDialog: (show: boolean) => void;
   onPressItem: (id: string | undefined) => void;
-  onDone: () => void;
+  saveChanges: () => void;
+  discardChanges: () => void;
   navigateToCreateItem: () => void;
 };
 
@@ -28,8 +34,11 @@ export const ItemListView = ({
   listItems,
   isLoading,
   image,
+  showDiscardDialog,
+  setShowDiscardDialog,
   onPressItem,
-  onDone,
+  saveChanges,
+  discardChanges,
   navigateToCreateItem,
 }: ItemListViewProps) => {
   const hasItems = listItems?.length > 0;
@@ -43,7 +52,7 @@ export const ItemListView = ({
           <ProgressCircle
             total={totalItems}
             completed={totalCompletedItems}
-            radius={25}
+            radius={35}
             strokeWidth={5}
           />
         </VStack>
@@ -60,7 +69,7 @@ export const ItemListView = ({
             <Text style={styles.emptyText}>
               Click the button below to add an item now
             </Text>
-            <View style={styles.buttonContainer}>
+            <View style={styles.buttonContainerRowCenter}>
               <Button text={'Add'} onPress={navigateToCreateItem} />
             </View>
           </View>
@@ -78,14 +87,26 @@ export const ItemListView = ({
                   );
                 })}
               </VStack>
+              <TouchableOpacity
+                style={styles.buttonContainerRowEnd}
+                onPress={navigateToCreateItem}>
+                <AddButton />
+              </TouchableOpacity>
             </ScrollView>
-            <View style={styles.buttonContainer}>
-              <Button text={'Save'} onPress={onDone} />
-              <Button text={'Add'} onPress={navigateToCreateItem} />
+            <View style={styles.buttonContainerRowCenter}>
+              <Button text={'Save'} onPress={saveChanges} />
             </View>
           </>
         )}
       </VStack>
+      <Alert
+        title="DISCARD"
+        message="Would you like to discard your changes?"
+        buttonActionTitle="Discard"
+        showDialog={showDiscardDialog}
+        onClose={() => setShowDiscardDialog(false)}
+        onAction={discardChanges}
+      />
     </View>
   );
 };

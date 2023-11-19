@@ -6,6 +6,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   title: {
     fontSize: 24,
@@ -21,9 +23,13 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     color: '#B2B2B2',
   },
-  buttonContainer: {
+  buttonContainerRowCenter: {
     flexDirection: 'row',
     justifyContent: 'center',
+  },
+  buttonContainerRowEnd: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
   label: {
     color: 'white',
