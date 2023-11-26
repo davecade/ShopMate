@@ -49,12 +49,23 @@ export const ItemListView = ({
       <VStack space="sm">
         <VStack space="lg" style={styles.titleProgressContainer}>
           <Heading style={styles.label}>{listName}</Heading>
-          <ProgressCircle
-            total={totalItems}
-            completed={totalCompletedItems}
-            radius={35}
-            strokeWidth={5}
-          />
+          <View style={styles.flexDirectionRow}>
+            <View style={styles.progressAndAddContainer}>
+              <ProgressCircle
+                total={totalItems}
+                completed={totalCompletedItems}
+                radius={35}
+                strokeWidth={5}
+              />
+              <View style={styles.addButtonContainer}>
+                <TouchableOpacity
+                  style={styles.buttonContainerRowEnd}
+                  onPress={navigateToCreateItem}>
+                  <AddButton />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
         </VStack>
         {isLoading ? (
           <View style={[globalStyles.flex, styles.emptyTextContainer]}>
@@ -87,11 +98,6 @@ export const ItemListView = ({
                   );
                 })}
               </VStack>
-              <TouchableOpacity
-                style={styles.buttonContainerRowEnd}
-                onPress={navigateToCreateItem}>
-                <AddButton />
-              </TouchableOpacity>
             </ScrollView>
             <View style={styles.buttonContainerRowCenter}>
               <Button text={'Save'} onPress={saveChanges} />

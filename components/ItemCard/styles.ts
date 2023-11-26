@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#1d1d1d',
     paddingVertical: 5,
     paddingHorizontal: 15,
-    borderRadius: 50,
+    borderRadius: 10,
     borderWidth: 1.5,
     width: '100%',
   },

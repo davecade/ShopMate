@@ -6,7 +6,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
     paddingVertical: 10,
   },
   title: {
@@ -63,5 +62,20 @@ export const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     marginVertical: 5,
+  },
+  addButtonContainer: {
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+  },
+  progressAndAddContainer: {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  flexDirectionRow: {
+    borderWidth: 1,
+    flexDirection: 'row',
   },
 });
