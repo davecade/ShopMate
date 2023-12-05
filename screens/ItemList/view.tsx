@@ -103,7 +103,7 @@ export const ItemListView = ({
             </ScrollView>
             <View>
               <Text
-                style={styles.emptyText}>{`Total Cost: $${totalCost}`}</Text>
+                style={styles.totalCost}>{`Total Cost: $${totalCost}`}</Text>
             </View>
             <View style={styles.buttonContainerRowCenter}>
               <Button text={'Save'} onPress={saveChanges} />

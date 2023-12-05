@@ -78,4 +78,10 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     flexDirection: 'row',
   },
+  totalCost: {
+    fontSize: 20, // Adjust the size as needed
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    textAlign: 'center',
+  },
 });
