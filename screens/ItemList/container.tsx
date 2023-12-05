@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {ItemListView} from './view';
 import {
   useRecoilState,
@@ -39,10 +39,24 @@ export const ItemListContainer = ({
   const selectedListData = selectedListLoadable.contents;
   const [selectedListState, setSelectedListState] =
     useState<ShoppingList>(selectedListData);
-  const selectedShoppingListItems = selectedListState?.items || [];
-  const completedItems =
-    selectedShoppingListItems?.filter(item => item.isBought)?.length || 0;
+  const selectedShoppingListItems = useMemo(() => {
+    return selectedListState?.items || [];
+  }, [selectedListState]);
+  const completedItems = useMemo(() => {
+    return (
+      selectedShoppingListItems?.filter(item => item.isBought)?.length || 0
+    );
+  }, [selectedShoppingListItems]);
   const totalItems = selectedShoppingListItems?.length || 0;
+  const totalCost = useMemo(() => {
+    return selectedShoppingListItems.reduce((acc, item) => {
+      const {price, quantity} = item;
+      if (price && quantity) {
+        return acc + price * quantity;
+      }
+      return acc;
+    }, 0);
+  }, [selectedShoppingListItems]);
 
   const onPressItem = (selectedItemId: string = '') => {
     setSelectedListState(prevState => {
@@ -99,6 +113,7 @@ export const ItemListContainer = ({
     <ItemListView
       listName={selectedListState?.name || ''}
       totalItems={totalItems}
+      totalCost={totalCost}
       totalCompletedItems={completedItems}
       listItems={selectedShoppingListItems}
       isLoading={isLoading}

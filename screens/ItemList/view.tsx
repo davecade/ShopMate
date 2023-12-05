@@ -15,6 +15,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 type ItemListViewProps = {
   listName: string;
   totalItems: number;
+  totalCost: number;
   totalCompletedItems: number;
   listItems: ShoppingItem[];
   isLoading: boolean;
@@ -30,6 +31,7 @@ type ItemListViewProps = {
 export const ItemListView = ({
   listName,
   totalItems,
+  totalCost,
   totalCompletedItems,
   listItems,
   isLoading,
@@ -99,6 +101,10 @@ export const ItemListView = ({
                 })}
               </VStack>
             </ScrollView>
+            <View>
+              <Text
+                style={styles.emptyText}>{`Total Cost: $${totalCost}`}</Text>
+            </View>
             <View style={styles.buttonContainerRowCenter}>
               <Button text={'Save'} onPress={saveChanges} />
             </View>

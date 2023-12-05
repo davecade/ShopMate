@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
   listName: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#FFC107',
   },
   listItems: {
     color: '#999',
@@ -23,5 +23,8 @@ export const styles = StyleSheet.create({
   strikeThrough: {
     textDecorationLine: 'line-through',
     color: '#999',
+  },
+  text: {
+    color: '#fff',
   },
 });
