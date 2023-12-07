@@ -23,6 +23,8 @@ type ItemListViewProps = {
   showDiscardDialog: boolean;
   setShowDiscardDialog: (show: boolean) => void;
   onPressItem: (id: string | undefined) => void;
+  onPressIncrement: (id: string | undefined) => void;
+  onPressDecrement: (id: string | undefined) => void;
   saveChanges: () => void;
   discardChanges: () => void;
   navigateToCreateItem: () => void;
@@ -39,6 +41,8 @@ export const ItemListView = ({
   showDiscardDialog,
   setShowDiscardDialog,
   onPressItem,
+  onPressIncrement,
+  onPressDecrement,
   saveChanges,
   discardChanges,
   navigateToCreateItem,
@@ -59,13 +63,15 @@ export const ItemListView = ({
                 radius={35}
                 strokeWidth={5}
               />
-              <View style={styles.addButtonContainer}>
-                <TouchableOpacity
-                  style={styles.buttonContainerRowEnd}
-                  onPress={navigateToCreateItem}>
-                  <AddButton />
-                </TouchableOpacity>
-              </View>
+              {hasItems && (
+                <View style={styles.addButtonContainer}>
+                  <TouchableOpacity
+                    style={styles.buttonContainerRowEnd}
+                    onPress={navigateToCreateItem}>
+                    <AddButton />
+                  </TouchableOpacity>
+                </View>
+              )}
             </View>
           </View>
         </VStack>
@@ -96,6 +102,8 @@ export const ItemListView = ({
                       key={item._id}
                       item={item}
                       onPress={() => onPressItem(item._id)}
+                      onIncrement={() => onPressIncrement(item._id)}
+                      onDecrement={() => onPressDecrement(item._id)}
                     />
                   );
                 })}

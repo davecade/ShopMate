@@ -33,4 +33,29 @@ export const styles = StyleSheet.create({
   text: {
     color: '#fff',
   },
+  quantityContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  quantityText: {
+    fontSize: 18,
+    marginHorizontal: 10,
+  },
+  checkBox: {
+    flex: 0.5,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  },
+  incrementDecrement: {
+    color: '#FFC107',
+    fontSize: 25,
+    lineHeight: 30,
+  },
+  deleteIcon: {
+    flex: 0.25,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
 });

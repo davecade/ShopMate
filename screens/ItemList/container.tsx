@@ -77,6 +77,44 @@ export const ItemListContainer = ({
     setIsDirty(true);
   };
 
+  const onPressIncrement = (selectedItemId: string = '') => {
+    setSelectedListState(prevState => {
+      const updatedItems = prevState.items.map(item => {
+        if (item._id === selectedItemId) {
+          return {
+            ...item,
+            quantity: item.quantity + 1,
+          };
+        }
+        return item;
+      });
+      return {
+        ...prevState,
+        items: updatedItems,
+      };
+    });
+    setIsDirty(true);
+  };
+
+  const onPressDecrement = (selectedItemId: string = '') => {
+    setSelectedListState(prevState => {
+      const updatedItems = prevState.items.map(item => {
+        if (item._id === selectedItemId) {
+          return {
+            ...item,
+            quantity: item.quantity - 1,
+          };
+        }
+        return item;
+      });
+      return {
+        ...prevState,
+        items: updatedItems,
+      };
+    });
+    setIsDirty(true);
+  };
+
   const saveChanges = async () => {
     const updatedListResponse = await updateListAsync(selectedListState);
 
@@ -121,6 +159,8 @@ export const ItemListContainer = ({
       showDiscardDialog={showDiscardDialog}
       setShowDiscardDialog={setShowDiscardDialog}
       onPressItem={onPressItem}
+      onPressIncrement={onPressIncrement}
+      onPressDecrement={onPressDecrement}
       saveChanges={saveChanges}
       discardChanges={discardChanges}
       navigateToCreateItem={navigateToCreateItem}

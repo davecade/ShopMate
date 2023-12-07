@@ -1,31 +1,63 @@
-import {View} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {styles} from './styles';
 import {ShoppingItem} from '../../types';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {CheckBox} from '../CheckBox/CheckBox';
-import {Text, VStack} from '@gluestack-ui/themed';
+import {Icon, Text, TrashIcon, VStack} from '@gluestack-ui/themed';
+import {globalStyles} from '../../styles/globalStyles';
 
 type ItemCardProps = {
   item: ShoppingItem;
   onPress: () => void;
+  onIncrement: () => void;
+  onDecrement: () => void;
 };
 
-export const ItemCard = ({item, onPress}: ItemCardProps) => {
-  console.log('item', item);
+export const ItemCard = ({
+  item,
+  onPress,
+  onIncrement,
+  onDecrement,
+}: ItemCardProps) => {
   const {name, quantity, price, isBought} = item;
+  const strikeThroughStyle = isBought && styles.strikeThrough;
 
   return (
     <View style={[styles.card]}>
-      <View>
-        <Text style={[styles.listName, isBought && styles.strikeThrough]}>
-          {name} <Text style={styles.text}>{`x ${quantity}`}</Text>
-        </Text>
+      <TouchableOpacity style={styles.deleteIcon} onPress={() => {}}>
+        <Icon
+          as={TrashIcon}
+          w="$4"
+          h="$4"
+          color={'$warmGray400'}
+          fill={'$warmGray400'}
+        />
+      </TouchableOpacity>
+      <View style={globalStyles.flex}>
+        <Text style={[styles.listName, strikeThroughStyle]}>{name}</Text>
         <VStack alignItems="flex-start" paddingTop="$2">
-          <Text style={styles.itemPrice}>{`Price: $${price}`}</Text>
+          <Text style={[styles.itemPrice, strikeThroughStyle]}>{`Price: $${
+            price * quantity
+          }`}</Text>
         </VStack>
       </View>
-      <TouchableOpacity onPress={onPress}>
+      <View style={[styles.quantityContainer]}>
+        <TouchableOpacity
+          onPress={onDecrement}
+          disabled={isBought || quantity === 1}>
+          <Text style={[styles.incrementDecrement, strikeThroughStyle]}>-</Text>
+        </TouchableOpacity>
+        <Text
+          style={[
+            styles.text,
+            styles.quantityText,
+            strikeThroughStyle,
+          ]}>{` x ${quantity} `}</Text>
+        <TouchableOpacity onPress={onIncrement} disabled={isBought}>
+          <Text style={[styles.incrementDecrement, strikeThroughStyle]}>+</Text>
+        </TouchableOpacity>
+      </View>
+      <TouchableOpacity onPress={onPress} style={styles.checkBox}>
         <CheckBox isChecked={isBought} />
       </TouchableOpacity>
     </View>
