@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flex: 1,
-    paddingRight: 10,
+    paddingRight: verticalScale(10),
   },
   title: {
     fontWeight: 'bold',

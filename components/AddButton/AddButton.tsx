@@ -1,5 +1,5 @@
 import {AddIcon, Icon, View} from '@gluestack-ui/themed';
-import React from 'react';
+import React, {useMemo} from 'react';
 import {styles} from './styles';
 import {TouchableOpacity} from 'react-native';
 
@@ -9,7 +9,7 @@ type AddButtonProps = {
 };
 
 const AddButton = ({size, onPress}: AddButtonProps) => {
-  const getSize = () => {
+  const iconSize = useMemo(() => {
     switch (size) {
       case 'xs':
         return 4;
@@ -24,14 +24,15 @@ const AddButton = ({size, onPress}: AddButtonProps) => {
       default:
         return 8;
     }
-  };
+  }, [size]);
+
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
         <Icon
           as={AddIcon}
-          w={`$${getSize()}`}
-          h={`$${getSize()}`}
+          w={`$${iconSize}`}
+          h={`$${iconSize}`}
           color="white"
         />
       </View>

@@ -1,38 +1,43 @@
 import {StyleSheet} from 'react-native';
 import {globalColors} from '../../styles/globalStyles';
+import {
+  horizontalScale,
+  scaleFontSize,
+  verticalScale,
+} from '../../styles/scaling';
 
 export const styles = StyleSheet.create({
   secondaryButton: {
     backgroundColor: globalColors.turquoise,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 10,
+    paddingVertical: verticalScale(10),
+    paddingHorizontal: horizontalScale(20),
+    borderRadius: horizontalScale(10),
   },
   secondaryButtonText: {
     color: 'black',
-    fontSize: 18,
+    fontSize: scaleFontSize(18),
   },
   primaryButton: {
     backgroundColor: globalColors.messengerBlue,
-    padding: 15,
-    borderRadius: 30,
+    padding: horizontalScale(15),
+    borderRadius: horizontalScale(30),
     alignItems: 'center',
-    width: 150,
+    width: horizontalScale(120),
   },
   primaryButtonText: {
     color: '#FFF3E0',
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: scaleFontSize(18),
   },
   greyButton: {
     backgroundColor: globalColors.slateBlue,
-    padding: 15,
-    borderRadius: 30,
+    padding: horizontalScale(15),
+    borderRadius: horizontalScale(30),
     alignItems: 'center',
-    width: 150,
+    width: horizontalScale(120),
   },
   greyButtonText: {
     color: '#FFF',
-    fontSize: 18,
+    fontSize: scaleFontSize(18),
   },
 });

@@ -6,8 +6,14 @@ import {
 } from '../services/api'; // import your axios instance
 import {allItemsAtom, allListsAtom} from './atoms';
 
+const keys = {
+  getAllLists: '@ShopMate_getAllLists',
+  getAllItemsQuery: '@ShopMate_getAllItemsQuery',
+  getOneListQuery: '@ShopMate_getOneListQuery',
+};
+
 export const getAllListsQuery = selector({
-  key: 'AllListsQuery',
+  key: keys.getAllLists,
   get: async ({get}) => {
     try {
       get(allListsAtom);
@@ -24,7 +30,7 @@ export const getAllListsQuery = selector({
 });
 
 export const getAllItemsQuery = selector({
-  key: 'AllItemsQuery',
+  key: keys.getAllItemsQuery,
   get: async ({get}) => {
     try {
       get(allItemsAtom);
@@ -41,7 +47,7 @@ export const getAllItemsQuery = selector({
 });
 
 export const getListByIdQuery = selectorFamily({
-  key: 'OneListQuery',
+  key: keys.getOneListQuery,
   get:
     (id: string) =>
     async ({get}) => {

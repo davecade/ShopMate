@@ -10,7 +10,7 @@ import {Button} from '../../components/Button/Button';
 import {ImageWithGlow} from '../../components/ImageWithGlow/ImageWithGlow';
 import {Alert} from '../../components/Alert/Alert';
 import AddButton from '../../components/AddButton/AddButton';
-import {horizontalScale, verticalScale} from '../../styles/scaling';
+import {horizontalScale} from '../../styles/scaling';
 
 type ItemListViewProps = {
   listName: string;
@@ -66,7 +66,7 @@ export const ItemListView = ({
                 total={totalItems}
                 completed={totalCompletedItems}
                 radius={horizontalScale(25)}
-                strokeWidth={verticalScale(2.5)}
+                strokeWidth={horizontalScale(4)}
               />
               {hasItems && (
                 <View style={styles.addButtonContainer}>

@@ -5,6 +5,7 @@ import {ShoppingItem} from '../../types';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {ProgressCircle} from '../ProgressCircle/ProgressCircle';
 import {Icon, TrashIcon} from '@gluestack-ui/themed';
+import {horizontalScale} from '../../styles/scaling';
 
 type ListCardProps = {
   title: string;
@@ -36,8 +37,8 @@ export const ListCard = ({title, items, onPress, onDelete}: ListCardProps) => {
           <ProgressCircle
             total={totalItems}
             completed={completedItems}
-            radius={25}
-            strokeWidth={5}
+            radius={horizontalScale(25)}
+            strokeWidth={horizontalScale(4)}
           />
         </TouchableOpacity>
       </View>

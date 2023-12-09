@@ -15,6 +15,10 @@ export const CreateListContainer = ({
   const setShoppingLists = useSetRecoilState<ShoppingList[]>(getAllListsQuery);
 
   const onPressCreate = async (title: string) => {
+    if (!title) {
+      return;
+    }
+
     const newListData: ShoppingList = {
       name: title,
       items: [],

@@ -39,4 +39,12 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
     width: '100%',
   },
+  inputError: {
+    borderColor: 'red',
+    borderWidth: 1,
+  },
+  inputErrorText: {
+    color: 'red',
+    paddingLeft: horizontalScale(10),
+  },
 });
