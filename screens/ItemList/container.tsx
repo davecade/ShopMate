@@ -1,11 +1,11 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {ItemListView} from './view';
 import {
   useRecoilState,
   useSetRecoilState,
   useRecoilValueLoadable,
 } from 'recoil';
-import {selectedListIdAtom} from '../../state/atoms';
+import {selectedListIdAtom, selectedListStateAtom} from '../../state/atoms';
 import {ShoppingList} from '../../types';
 import {getAllListsQuery, getListByIdQuery} from '../../state/selectors';
 import {updateListAsync} from '../../services/api';
@@ -14,6 +14,7 @@ type ItemListtContainerProps = {
   preselectedListId: string;
   navigateToCreateItem: () => void;
   navigateToPreviousPage: () => void;
+  isDirty: boolean;
   setIsDirty: (isDirty: boolean) => void;
   showDiscardDialog: boolean;
   setShowDiscardDialog: (show: boolean) => void;
@@ -25,6 +26,7 @@ export const ItemListContainer = ({
   preselectedListId,
   navigateToCreateItem,
   navigateToPreviousPage,
+  isDirty,
   setIsDirty,
   showDiscardDialog,
   setShowDiscardDialog,
@@ -35,10 +37,11 @@ export const ItemListContainer = ({
   const selectedListLoadable = useRecoilValueLoadable(
     getListByIdQuery(selectedListId),
   );
-  const isLoading = selectedListLoadable.state === 'loading';
+
   const selectedListData = selectedListLoadable.contents;
   const [selectedListState, setSelectedListState] =
-    useState<ShoppingList>(selectedListData);
+    useRecoilState<ShoppingList>(selectedListStateAtom);
+
   const selectedShoppingListItems = useMemo(() => {
     return selectedListState?.items || [];
   }, [selectedListState]);
@@ -47,15 +50,20 @@ export const ItemListContainer = ({
       selectedShoppingListItems?.filter(item => item.isBought)?.length || 0
     );
   }, [selectedShoppingListItems]);
+  const isLoading = selectedListLoadable.state === 'loading';
   const totalItems = selectedShoppingListItems?.length || 0;
   const totalCost = useMemo(() => {
-    return selectedShoppingListItems.reduce((acc, item) => {
-      const {price, quantity} = item;
-      if (price && quantity) {
-        return acc + price * quantity;
-      }
-      return acc;
-    }, 0);
+    return Number(
+      selectedShoppingListItems
+        .reduce((acc, item) => {
+          const {price, quantity} = item;
+          if (price && quantity) {
+            return acc + price * quantity;
+          }
+          return acc;
+        }, 0)
+        .toFixed(2),
+    );
   }, [selectedShoppingListItems]);
 
   const onPressItem = (selectedItemId: string = '') => {
@@ -69,6 +77,19 @@ export const ItemListContainer = ({
         }
         return item;
       });
+      return {
+        ...prevState,
+        items: updatedItems,
+      };
+    });
+    setIsDirty(true);
+  };
+
+  const onDeleteItem = (selectedItemId: string = '') => {
+    setSelectedListState(prevState => {
+      const updatedItems = prevState.items.filter(
+        item => item._id !== selectedItemId,
+      );
       return {
         ...prevState,
         items: updatedItems,
@@ -130,6 +151,9 @@ export const ItemListContainer = ({
       });
     }
     navigateToPreviousPage();
+    setTimeout(() => {
+      discardChanges();
+    }, 500); // so that it doesn't change too fast
   };
 
   useEffect(() => {
@@ -137,14 +161,14 @@ export const ItemListContainer = ({
   }, [setSelectedListId, preselectedListId]);
 
   useEffect(() => {
-    setSelectedListState(selectedListData);
-  }, [selectedListData]);
+    if (!isLoading && selectedListData) {
+      setSelectedListState(selectedListData);
+    }
+  }, [isLoading, selectedListData, setSelectedListState]);
 
   const discardChanges = () => {
     setSelectedListState(selectedListData);
     setIsDirty(false);
-    setShowDiscardDialog(false);
-    navigateToPreviousPage();
   };
 
   return (
@@ -157,13 +181,16 @@ export const ItemListContainer = ({
       isLoading={isLoading}
       image={emptyImage}
       showDiscardDialog={showDiscardDialog}
+      isDirty={isDirty}
       setShowDiscardDialog={setShowDiscardDialog}
       onPressItem={onPressItem}
       onPressIncrement={onPressIncrement}
       onPressDecrement={onPressDecrement}
+      onDeleteItem={onDeleteItem}
       saveChanges={saveChanges}
       discardChanges={discardChanges}
       navigateToCreateItem={navigateToCreateItem}
+      navigateToPreviousPage={navigateToPreviousPage}
     />
   );
 };

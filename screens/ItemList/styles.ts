@@ -51,7 +51,6 @@ export const styles = StyleSheet.create({
     marginBottom: 50,
   },
   imageContainer: {
-    marginBottom: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -59,9 +58,9 @@ export const styles = StyleSheet.create({
     paddingTop: 130,
   },
   emptyText: {
+    fontSize: 18,
     color: 'white',
     textAlign: 'center',
-    marginVertical: 5,
   },
   addButtonContainer: {
     position: 'absolute',

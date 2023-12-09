@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {ItemListContainer} from './container';
 import {useNavigation} from '@react-navigation/native';
 import {HeaderBackButton} from '@react-navigation/elements';
-import {useSetRecoilState} from 'recoil';
-import {selectedListIdAtom} from '../../state/atoms';
+import {useRecoilState, useSetRecoilState} from 'recoil';
+import {hasCurrentListChangedAtom, selectedListIdAtom} from '../../state/atoms';
 
 type RouteParams = {
   route: {
@@ -17,7 +17,7 @@ export const ItemListScene = ({route}: RouteParams) => {
   const {listId} = route.params;
   const {navigate, goBack, setOptions} = useNavigation();
   const setSelectedListId = useSetRecoilState<string>(selectedListIdAtom);
-  const [isDirty, setIsDirty] = useState(false);
+  const [isDirty, setIsDirty] = useRecoilState(hasCurrentListChangedAtom);
   const [showDiscardDialog, setShowDiscardDialog] = useState(false);
 
   useEffect(() => {
@@ -56,6 +56,7 @@ export const ItemListScene = ({route}: RouteParams) => {
       preselectedListId={listId}
       navigateToCreateItem={navigateToCreateItem}
       navigateToPreviousPage={navigateToPreviousPage}
+      isDirty={isDirty}
       setIsDirty={setIsDirty}
       showDiscardDialog={showDiscardDialog}
       setShowDiscardDialog={setShowDiscardDialog}

@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   listName: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
     color: '#FFC107',
   },

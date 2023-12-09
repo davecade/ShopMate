@@ -11,6 +11,7 @@ type ItemCardProps = {
   onPress: () => void;
   onIncrement: () => void;
   onDecrement: () => void;
+  onDelete: () => void;
 };
 
 export const ItemCard = ({
@@ -18,13 +19,14 @@ export const ItemCard = ({
   onPress,
   onIncrement,
   onDecrement,
+  onDelete,
 }: ItemCardProps) => {
   const {name, quantity, price, isBought} = item;
   const strikeThroughStyle = isBought && styles.strikeThrough;
 
   return (
     <View style={[styles.card]}>
-      <TouchableOpacity style={styles.deleteIcon} onPress={() => {}}>
+      <TouchableOpacity style={styles.deleteIcon} onPress={onDelete}>
         <Icon
           as={TrashIcon}
           w="$4"

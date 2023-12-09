@@ -21,13 +21,16 @@ type ItemListViewProps = {
   isLoading: boolean;
   image: number;
   showDiscardDialog: boolean;
+  isDirty: boolean;
   setShowDiscardDialog: (show: boolean) => void;
   onPressItem: (id: string | undefined) => void;
   onPressIncrement: (id: string | undefined) => void;
   onPressDecrement: (id: string | undefined) => void;
+  onDeleteItem: (id: string | undefined) => void;
   saveChanges: () => void;
   discardChanges: () => void;
   navigateToCreateItem: () => void;
+  navigateToPreviousPage: () => void;
 };
 
 export const ItemListView = ({
@@ -39,17 +42,19 @@ export const ItemListView = ({
   isLoading,
   image,
   showDiscardDialog,
+  isDirty,
   setShowDiscardDialog,
   onPressItem,
   onPressIncrement,
   onPressDecrement,
+  onDeleteItem,
   saveChanges,
   discardChanges,
   navigateToCreateItem,
+  navigateToPreviousPage,
 }: ItemListViewProps) => {
   const hasItems = listItems?.length > 0;
   const isEmpty = !hasItems;
-
   return (
     <View style={globalStyles.container}>
       <VStack space="sm">
@@ -79,18 +84,22 @@ export const ItemListView = ({
           <View style={[globalStyles.flex, styles.emptyTextContainer]}>
             <Text style={styles.emptyText}>Loading...</Text>
           </View>
-        ) : isEmpty ? (
+        ) : isEmpty && !isDirty ? (
           <View style={[globalStyles.flex, styles.emptyTextContainer]}>
-            <View style={styles.imageContainer}>
-              <ImageWithGlow image={image} size="lg" />
-            </View>
-            <Text style={styles.emptyText}>Your list is empty</Text>
-            <Text style={styles.emptyText}>
-              Click the button below to add an item now
-            </Text>
-            <View style={styles.buttonContainerRowCenter}>
-              <Button text={'Add'} onPress={navigateToCreateItem} />
-            </View>
+            <VStack gap="$10">
+              <View style={styles.imageContainer}>
+                <ImageWithGlow image={image} size="lg" />
+              </View>
+              <View>
+                <Text style={styles.emptyText}>Your list is empty</Text>
+                <Text style={styles.emptyText}>
+                  Click the button below to add an item now
+                </Text>
+              </View>
+              <View style={styles.buttonContainerRowCenter}>
+                <Button text={'Add'} onPress={navigateToCreateItem} />
+              </View>
+            </VStack>
           </View>
         ) : (
           <>
@@ -104,6 +113,7 @@ export const ItemListView = ({
                       onPress={() => onPressItem(item._id)}
                       onIncrement={() => onPressIncrement(item._id)}
                       onDecrement={() => onPressDecrement(item._id)}
+                      onDelete={() => onDeleteItem(item._id)}
                     />
                   );
                 })}
@@ -125,7 +135,13 @@ export const ItemListView = ({
         buttonActionTitle="Discard"
         showDialog={showDiscardDialog}
         onClose={() => setShowDiscardDialog(false)}
-        onAction={discardChanges}
+        onAction={() => {
+          setShowDiscardDialog(false);
+          navigateToPreviousPage();
+          setTimeout(() => {
+            discardChanges();
+          }, 500); // so that it doesn't change too fast
+        }}
       />
     </View>
   );
