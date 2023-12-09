@@ -1,30 +1,31 @@
 import {StyleSheet} from 'react-native';
-import {completedColor} from '../../styles/globalStyles';
+import {globalColors} from '../../styles/globalStyles';
+import {horizontalScale, scaleFontSize} from '../../styles/scaling';
 
 export const styles = StyleSheet.create({
   checkboxUnchecked: {
-    width: 30,
-    height: 30,
-    borderRadius: 50,
-    borderWidth: 3,
+    width: horizontalScale(25),
+    height: horizontalScale(25),
+    borderRadius: horizontalScale(50),
+    borderWidth: horizontalScale(3),
     borderColor: 'grey',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'black',
   },
   checkboxChecked: {
-    width: 30,
-    height: 30,
-    borderRadius: 50,
-    borderWidth: 3,
-    borderColor: completedColor,
+    width: horizontalScale(25),
+    height: horizontalScale(25),
+    borderRadius: horizontalScale(50),
+    borderWidth: horizontalScale(3),
+    borderColor: globalColors.completedColor,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'black',
   },
   checked: {
-    color: completedColor,
+    color: globalColors.completedColor,
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: scaleFontSize(20),
   },
 });

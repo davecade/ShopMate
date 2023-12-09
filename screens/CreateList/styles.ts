@@ -1,24 +1,30 @@
 import {StyleSheet} from 'react-native';
+import {
+  horizontalScale,
+  scaleFontSize,
+  verticalScale,
+} from '../../styles/scaling';
+import {globalColors} from '../../styles/globalStyles';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#131313',
-    padding: 20,
+    backgroundColor: globalColors.appBackground,
+    padding: horizontalScale(20),
   },
   title: {
-    fontSize: 24,
+    fontSize: scaleFontSize(24),
     fontWeight: 'bold',
     color: '#D2C2C2',
   },
   input: {
     width: '100%',
-    height: 50,
+    height: verticalScale(30),
     backgroundColor: '#1f1f1f',
-    borderRadius: 20,
-    padding: 10,
-    fontSize: 18,
+    borderRadius: horizontalScale(20),
+    padding: horizontalScale(10),
+    fontSize: scaleFontSize(18),
     color: '#B2B2B2',
   },
   buttonContainer: {
@@ -29,7 +35,7 @@ export const styles = StyleSheet.create({
   },
   label: {
     color: 'white',
-    fontSize: 18,
+    fontSize: scaleFontSize(18),
     textAlign: 'left',
     width: '100%',
   },

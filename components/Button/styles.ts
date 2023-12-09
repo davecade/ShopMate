@@ -1,8 +1,9 @@
 import {StyleSheet} from 'react-native';
+import {globalColors} from '../../styles/globalStyles';
 
 export const styles = StyleSheet.create({
   secondaryButton: {
-    backgroundColor: 'turquoise',
+    backgroundColor: globalColors.turquoise,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,
@@ -12,18 +13,19 @@ export const styles = StyleSheet.create({
     fontSize: 18,
   },
   primaryButton: {
-    backgroundColor: '#265751',
+    backgroundColor: globalColors.messengerBlue,
     padding: 15,
     borderRadius: 30,
     alignItems: 'center',
     width: 150,
   },
   primaryButtonText: {
-    color: '#FFFFFF',
+    color: '#FFF3E0',
+    fontWeight: 'bold',
     fontSize: 18,
   },
   greyButton: {
-    backgroundColor: '#4F4E4E',
+    backgroundColor: globalColors.slateBlue,
     padding: 15,
     borderRadius: 30,
     alignItems: 'center',

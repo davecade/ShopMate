@@ -1,11 +1,7 @@
 import React, {useMemo} from 'react';
 import {View} from 'react-native';
 import Svg, {Circle, Text} from 'react-native-svg';
-import {
-  completedColor,
-  inProgressColor,
-  notStartedColor,
-} from '../../styles/globalStyles';
+import {globalColors} from '../../styles/globalStyles';
 
 type ProgressCircleProps = {
   total: number;
@@ -27,14 +23,14 @@ export const ProgressCircle = ({
 
   const progressColor = useMemo(() => {
     if (completed === 0) {
-      return notStartedColor;
+      return globalColors.notStartedColor;
     }
 
     if (completed === total) {
-      return completedColor;
+      return globalColors.completedColor;
     }
 
-    return inProgressColor;
+    return globalColors.inProgressColor;
   }, [completed, total]);
 
   return (

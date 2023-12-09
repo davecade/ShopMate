@@ -1,4 +1,9 @@
 import {StyleSheet} from 'react-native';
+import {
+  horizontalScale,
+  scaleFontSize,
+  verticalScale,
+} from '../../styles/scaling';
 
 export const styles = StyleSheet.create({
   titleProgressContainer: {
@@ -6,20 +11,20 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: verticalScale(10),
   },
   title: {
-    fontSize: 24,
+    fontSize: scaleFontSize(24),
     fontWeight: 'bold',
     color: '#D2C2C2',
   },
   input: {
     width: '100%',
-    height: 50,
+    height: verticalScale(50),
     backgroundColor: '#1f1f1f',
-    borderRadius: 20,
-    padding: 10,
-    fontSize: 18,
+    borderRadius: horizontalScale(20),
+    padding: horizontalScale(10),
+    fontSize: scaleFontSize(18),
     color: '#B2B2B2',
   },
   buttonContainerRowCenter: {
@@ -32,33 +37,33 @@ export const styles = StyleSheet.create({
   },
   label: {
     color: 'white',
-    fontSize: 24,
+    fontSize: scaleFontSize(24),
   },
   container: {
     flex: 1,
     backgroundColor: '#131313',
-    padding: 20,
+    padding: horizontalScale(20),
     justifyContent: 'center',
   },
   shoppingTitle: {
-    fontSize: 24,
-    marginBottom: 50,
+    fontSize: scaleFontSize(24),
+    marginBottom: verticalScale(50),
     textAlign: 'center',
     color: 'white',
   },
   shoppingCartContainer: {
     alignItems: 'center',
-    marginBottom: 50,
+    marginBottom: verticalScale(50),
   },
   imageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
   },
   emptyTextContainer: {
-    paddingTop: 130,
+    paddingTop: verticalScale(130),
   },
   emptyText: {
-    fontSize: 18,
+    fontSize: scaleFontSize(18),
     color: 'white',
     textAlign: 'center',
   },
@@ -78,7 +83,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   totalCost: {
-    fontSize: 20, // Adjust the size as needed
+    fontSize: scaleFontSize(20),
     fontWeight: 'bold',
     color: '#FFFFFF',
     textAlign: 'center',

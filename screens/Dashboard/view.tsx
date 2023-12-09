@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {styles} from './styles';
-import {Button} from '../../components/Button/Button';
 import {ImageWithGlow} from '../../components/ImageWithGlow/ImageWithGlow';
 import {Heading, VStack, ScrollView} from '@gluestack-ui/themed';
 import {ListCard} from '../../components/ListCard/ListCard';
 import {ShoppingList} from '../../types';
 import {Alert} from '../../components/Alert/Alert';
+import AddButton from '../../components/AddButton/AddButton';
 
 type DashboardViewProps = {
   onCreateList: () => void;
@@ -53,11 +53,7 @@ export const DashboardView = ({
               Tap the button below to create one now
             </Text>
             <View style={styles.buttonContainer}>
-              <Button
-                text={'+ Create'}
-                onPress={() => onCreateList()}
-                type="primary"
-              />
+              <AddButton size="xl" onPress={() => onCreateList()} />
             </View>
           </View>
         </>
@@ -84,11 +80,7 @@ export const DashboardView = ({
             </VStack>
           </ScrollView>
           <View style={styles.buttonContainer}>
-            <Button
-              text={'+ Create'}
-              onPress={() => onCreateList()}
-              type="primary"
-            />
+            <AddButton size="lg" onPress={() => onCreateList()} />
           </View>
         </>
       )}

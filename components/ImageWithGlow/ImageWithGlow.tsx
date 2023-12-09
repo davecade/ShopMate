@@ -1,6 +1,7 @@
 import {View, Image} from 'react-native';
 import React from 'react';
 import {styles} from './styles';
+import {horizontalScale, verticalScale} from '../../styles/scaling';
 
 type ImageWithGlowProps = {
   image: number;
@@ -14,23 +15,23 @@ export const ImageWithGlow = ({image, size}: ImageWithGlowProps) => {
     switch (size) {
       case 'sm':
         return {
-          height: 110,
-          width: 120,
+          height: verticalScale(110),
+          width: horizontalScale(120),
         };
       case 'md':
         return {
-          height: 150,
-          width: 150,
+          height: verticalScale(150),
+          width: horizontalScale(150),
         };
       case 'lg':
         return {
-          height: 190,
-          width: 190,
+          height: verticalScale(190),
+          width: horizontalScale(190),
         };
       default:
         return {
-          height: 150,
-          width: 150,
+          height: verticalScale(150),
+          width: horizontalScale(150),
         };
     }
   };

@@ -10,7 +10,7 @@ import {Button} from '../../components/Button/Button';
 import {ImageWithGlow} from '../../components/ImageWithGlow/ImageWithGlow';
 import {Alert} from '../../components/Alert/Alert';
 import AddButton from '../../components/AddButton/AddButton';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {horizontalScale, verticalScale} from '../../styles/scaling';
 
 type ItemListViewProps = {
   listName: string;
@@ -65,16 +65,14 @@ export const ItemListView = ({
               <ProgressCircle
                 total={totalItems}
                 completed={totalCompletedItems}
-                radius={35}
-                strokeWidth={5}
+                radius={horizontalScale(25)}
+                strokeWidth={verticalScale(2.5)}
               />
               {hasItems && (
                 <View style={styles.addButtonContainer}>
-                  <TouchableOpacity
-                    style={styles.buttonContainerRowEnd}
-                    onPress={navigateToCreateItem}>
-                    <AddButton />
-                  </TouchableOpacity>
+                  <View style={styles.buttonContainerRowEnd}>
+                    <AddButton onPress={navigateToCreateItem} />
+                  </View>
                 </View>
               )}
             </View>
@@ -85,7 +83,7 @@ export const ItemListView = ({
             <Text style={styles.emptyText}>Loading...</Text>
           </View>
         ) : isEmpty && !isDirty ? (
-          <View style={[globalStyles.flex, styles.emptyTextContainer]}>
+          <View style={[globalStyles.flex]}>
             <VStack gap="$10">
               <View style={styles.imageContainer}>
                 <ImageWithGlow image={image} size="lg" />
@@ -97,7 +95,7 @@ export const ItemListView = ({
                 </Text>
               </View>
               <View style={styles.buttonContainerRowCenter}>
-                <Button text={'Add'} onPress={navigateToCreateItem} />
+                <AddButton size="xl" onPress={navigateToCreateItem} />
               </View>
             </VStack>
           </View>

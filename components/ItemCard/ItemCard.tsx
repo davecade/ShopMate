@@ -25,7 +25,7 @@ export const ItemCard = ({
   const strikeThroughStyle = isBought && styles.strikeThrough;
 
   return (
-    <View style={[styles.card]}>
+    <View style={styles.card}>
       <TouchableOpacity style={styles.deleteIcon} onPress={onDelete}>
         <Icon
           as={TrashIcon}
@@ -38,9 +38,9 @@ export const ItemCard = ({
       <View style={globalStyles.flex}>
         <Text style={[styles.listName, strikeThroughStyle]}>{name}</Text>
         <VStack alignItems="flex-start" paddingTop="$2">
-          <Text style={[styles.itemPrice, strikeThroughStyle]}>{`Price: $${
+          <Text style={[styles.itemPrice, strikeThroughStyle]}>{`$${(
             price * quantity
-          }`}</Text>
+          ).toFixed(2)}`}</Text>
         </VStack>
       </View>
       <View style={[styles.quantityContainer]}>

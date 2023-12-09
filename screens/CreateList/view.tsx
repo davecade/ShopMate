@@ -22,6 +22,7 @@ export const CreateListView = ({
         <TextInput
           style={styles.input}
           placeholder="Enter Shopping List name"
+          placeholderTextColor={'grey'}
           onChangeText={value => setListNameValue(value)}
           value={listNameValue}
         />

@@ -52,7 +52,6 @@ export const AppNavigator = () => {
           component={ItemList}
           options={{
             headerShown: true,
-            headerBackTitleVisible: false,
             cardStyleInterpolator:
               CardStyleInterpolators.forModalPresentationIOS,
           }}
@@ -62,7 +61,6 @@ export const AppNavigator = () => {
           component={CreateItem}
           options={{
             headerShown: true,
-            headerBackTitleVisible: false,
             cardStyleInterpolator:
               CardStyleInterpolators.forModalPresentationIOS,
           }}

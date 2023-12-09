@@ -1,13 +1,8 @@
 import React, {useState} from 'react';
-import {
-  View,
-  TextInput,
-  FlatList,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import {View, TextInput, FlatList, Text} from 'react-native';
 import {ShoppingItem} from '../../types';
+import {styles} from './styles';
+import AddButton from '../AddButton/AddButton';
 
 type FilterableListProps = {
   list: ShoppingItem[];
@@ -23,68 +18,33 @@ export const FilterableList = ({list, onAdd}: FilterableListProps) => {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        onChangeText={setQuery}
-        value={query}
-        placeholder="Type here..."
-        placeholderTextColor="#666"
-      />
+      <View style={styles.textInputContainer}>
+        <TextInput
+          style={styles.input}
+          onChangeText={setQuery}
+          value={query}
+          placeholder="Type here..."
+          placeholderTextColor="grey"
+        />
+      </View>
       <FlatList
         data={filteredItems}
-        renderItem={({item}) => (
-          <View style={styles.item}>
-            <Text style={styles.title}>{item.name}</Text>
-            <TouchableOpacity
-              onPress={() => onAdd(item)}
-              style={styles.addButton}>
-              <Text style={styles.addButtonText}>ADD</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+        style={styles.scrollableList}
+        renderItem={({item}) => {
+          return (
+            <View style={styles.item}>
+              <View style={styles.textContainer}>
+                <Text style={styles.title}>{item.name}</Text>
+                <Text style={styles.price}>{`$${item.price.toFixed(2)}`}</Text>
+              </View>
+              <View style={styles.addButton}>
+                <AddButton onPress={() => onAdd(item)} size="sm" />
+              </View>
+            </View>
+          );
+        }}
         keyExtractor={item => (item._id ? item._id : item.name)}
       />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 0.8,
-    backgroundColor: '#202020',
-    paddingTop: 50,
-    width: '95%',
-    borderRadius: 15,
-  },
-  input: {
-    height: 50,
-    marginHorizontal: 10,
-    borderWidth: 0,
-    color: 'white',
-    paddingHorizontal: 15,
-    fontSize: 18,
-    borderRadius: 10,
-    backgroundColor: '#444',
-  },
-  item: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#555',
-  },
-  title: {
-    color: 'white',
-    fontSize: 18,
-  },
-  addButton: {
-    backgroundColor: '#666',
-    padding: 10,
-    borderRadius: 5,
-  },
-  addButtonText: {
-    color: 'white',
-    fontSize: 18,
-  },
-});
