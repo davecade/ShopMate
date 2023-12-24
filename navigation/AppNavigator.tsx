@@ -8,6 +8,7 @@ import {
 import Login from '../screens/Login';
 import Dashboard from '../screens/Dashboard';
 import CreateList from '../screens/CreateList';
+import EditList from '../screens/EditList';
 import ItemList from '../screens/ItemList';
 import CreateItem from '../screens/CreateItem';
 
@@ -15,6 +16,9 @@ type RootStackParamList = {
   Login: undefined;
   Dashboard: undefined;
   CreateList: undefined;
+  EditList: {
+    listId: string;
+  };
   ItemList: {
     listId: string;
   };
@@ -45,6 +49,11 @@ export const AppNavigator = () => {
         <Stack.Screen
           name="CreateList"
           component={CreateList}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="EditList"
+          component={EditList}
           options={{headerShown: false}}
         />
         <Stack.Screen

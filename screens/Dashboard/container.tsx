@@ -7,11 +7,13 @@ import {ShoppingList} from '../../types';
 
 type DashboardContainerProps = {
   navigateToCreateList: () => void;
+  navigateToEditList: (listId: string) => void;
   navigateToItemList: (listId: string) => void;
 };
 
 export const DashboardContainer = ({
   navigateToCreateList,
+  navigateToEditList,
   navigateToItemList,
 }: DashboardContainerProps) => {
   const trolleyImage = require('../../assets/images/trolley.png');
@@ -24,6 +26,10 @@ export const DashboardContainer = ({
 
   const onCreateList = () => {
     navigateToCreateList();
+  };
+
+  const onEditList = (listId: string = '') => {
+    navigateToEditList(listId);
   };
 
   const onPressList = (listId: string = '') => {
@@ -48,6 +54,7 @@ export const DashboardContainer = ({
   return (
     <DashboardView
       onCreateList={onCreateList}
+      onEditList={onEditList}
       onPressList={onPressList}
       onDeleteList={onDeleteList}
       setShowDeleteDialog={setShowDeleteDialog}

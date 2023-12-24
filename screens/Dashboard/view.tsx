@@ -10,6 +10,7 @@ import AddButton from '../../components/AddButton/AddButton';
 
 type DashboardViewProps = {
   onCreateList: () => void;
+  onEditList: (listId: string | undefined) => void;
   onPressList: (listId: string | undefined) => void;
   onDeleteList: (listId: string | undefined) => void;
   setShowDeleteDialog: (show: boolean) => void;
@@ -23,6 +24,7 @@ type DashboardViewProps = {
 
 export const DashboardView = ({
   onCreateList,
+  onEditList,
   onPressList,
   onDeleteList,
   setShowDeleteDialog,
@@ -74,13 +76,14 @@ export const DashboardView = ({
                       setSelectedListIdToDelete(list._id);
                       setShowDeleteDialog(true);
                     }}
+                    onEdit={() => onEditList(list._id)}
                   />
                 );
               })}
             </VStack>
           </ScrollView>
           <View style={styles.buttonContainer}>
-            <AddButton size="lg" onPress={() => onCreateList()} />
+            <AddButton size="lg" onPress={onCreateList} />
           </View>
         </>
       )}

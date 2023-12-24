@@ -10,6 +10,11 @@ export const DashboardScene = () => {
     navigate('CreateList');
   };
 
+  const navigateToEditList = (listId: string) => {
+    //@ts-ignore
+    navigate('EditList', {listId});
+  };
+
   const navigateToItemList = (listId: string) => {
     //@ts-ignore
     navigate('ItemList', {listId});
@@ -18,6 +23,7 @@ export const DashboardScene = () => {
   return (
     <DashboardContainer
       navigateToCreateList={navigateToCreateList}
+      navigateToEditList={navigateToEditList}
       navigateToItemList={navigateToItemList}
     />
   );
