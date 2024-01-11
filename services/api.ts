@@ -1,8 +1,14 @@
 import axios from 'axios';
+import Config from 'react-native-config';
 import {ShoppingItem, ShoppingList} from '../types';
 
 const api = axios.create({
   baseURL: 'http://localhost:3000',
+});
+
+api.interceptors.request.use(config => {
+  config.headers.Authorization = `Bearer ${Config.API_SECRET_KEY}`;
+  return config;
 });
 
 export const getAllListsAsync = async () => {
