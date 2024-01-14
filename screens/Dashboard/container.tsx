@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {DashboardView} from './view';
 import {useShoppingLists} from '../../hooks/useShoppingLists';
 
@@ -18,16 +18,7 @@ export const DashboardContainer = ({
   const [selectedListIdToDelete, setSelectedListIdToDelete] = useState<
     string | undefined
   >('');
-  const {isLoading, getAllLists, deleteListById, shoppingLists} =
-    useShoppingLists();
-
-  // initial fetch
-  useEffect(() => {
-    (async () => {
-      getAllLists();
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const {isLoading, deleteListById, shoppingLists} = useShoppingLists();
 
   const onCreateList = () => {
     navigateToCreateList();

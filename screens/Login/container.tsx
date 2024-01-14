@@ -1,9 +1,7 @@
 import React, {useEffect} from 'react';
 import LoginView from './view';
-import {useSetRecoilState} from 'recoil';
-import {ShoppingItem} from '../../types';
-import {getAllItemsAsync} from '../../services/api';
-import {allItemsAtom} from '../../state/atoms';
+import {useItems} from '../../hooks/useItems';
+import {useShoppingLists} from '../../hooks/useShoppingLists';
 
 type LoginContainerProps = {
   navigateToDashboard: () => void;
@@ -11,16 +9,21 @@ type LoginContainerProps = {
 
 export const LoginContainer = ({navigateToDashboard}: LoginContainerProps) => {
   const loginImage = require('../../assets/images/home.png');
-  const setAllShoppingItems = useSetRecoilState<ShoppingItem[]>(allItemsAtom);
+  const {isLoading: isItemsLoading, getAllItems} = useItems();
+  const {isLoading: isShoppingListsloading, getAllLists} = useShoppingLists();
+  const isLoading = isItemsLoading || isShoppingListsloading;
 
   useEffect(() => {
-    (async () => {
-      const items = await getAllItemsAsync();
-      setAllShoppingItems(items);
-    })();
-  }, [setAllShoppingItems]);
+    getAllItems();
+    getAllLists();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <LoginView image={loginImage} navigateToDashboard={navigateToDashboard} />
+    <LoginView
+      isLoading={isLoading}
+      image={loginImage}
+      navigateToDashboard={navigateToDashboard}
+    />
   );
 };

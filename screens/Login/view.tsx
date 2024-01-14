@@ -4,13 +4,15 @@ import {styles} from './styles';
 import {Button} from '../../components/Button/Button';
 import {ImageWithGlow} from '../../components/ImageWithGlow/ImageWithGlow';
 import {Heading} from '@gluestack-ui/themed';
+import LoadingOverlay from '../../components/LoadingOverlay/LoadingOverlay';
 
 type LoginViewProps = {
+  isLoading: boolean;
   image: number;
   navigateToDashboard: () => void;
 };
 
-const LoginView = ({image, navigateToDashboard}: LoginViewProps) => {
+const LoginView = ({isLoading, image, navigateToDashboard}: LoginViewProps) => {
   return (
     <View style={styles.container}>
       <Heading style={styles.title}>Shop Mate</Heading>
@@ -22,6 +24,7 @@ const LoginView = ({image, navigateToDashboard}: LoginViewProps) => {
         text={'Start using Shop Mate'}
         onPress={navigateToDashboard}
       />
+      <LoadingOverlay isVisible={isLoading} />
     </View>
   );
 };

@@ -31,7 +31,6 @@ export const EditListView = ({
         <View>
           <TextInput
             style={[styles.input, showInputError && styles.inputError]}
-            placeholder="Change Shopping List name"
             placeholderTextColor={'grey'}
             onChangeText={value => {
               setShowInputError(false);
