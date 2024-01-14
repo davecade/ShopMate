@@ -23,7 +23,7 @@ export const ListCard = ({
   onEdit,
 }: ListCardProps) => {
   const totalItems = items?.length;
-  const completedItems = items?.filter(item => item.isBought)?.length;
+  const completedItems = items?.filter(item => item.isChecked)?.length;
 
   return (
     <HStack gap={20} style={styles.card}>
@@ -38,14 +38,15 @@ export const ListCard = ({
       </TouchableOpacity>
       <View style={styles.titleAndProcessContainer}>
         <TouchableOpacity onPress={onPress} style={styles.cardTouchable}>
-          <View>
+          <View style={styles.textContainer}>
             <Text style={styles.listName}>{title}</Text>
           </View>
           <ProgressCircle
             total={totalItems}
             completed={completedItems}
             radius={horizontalScale(25)}
-            strokeWidth={horizontalScale(4)}
+            strokeWidth={horizontalScale(3)}
+            fontSize={horizontalScale(14)}
           />
         </TouchableOpacity>
       </View>

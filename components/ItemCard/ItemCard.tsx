@@ -21,8 +21,8 @@ export const ItemCard = ({
   onDecrement,
   onDelete,
 }: ItemCardProps) => {
-  const {name, quantity, price, isBought} = item;
-  const strikeThroughStyle = isBought && styles.strikeThrough;
+  const {name, quantity, price, isChecked} = item;
+  const strikeThroughStyle = isChecked && styles.strikeThrough;
 
   return (
     <View style={styles.card}>
@@ -46,7 +46,7 @@ export const ItemCard = ({
       <View style={[styles.quantityContainer]}>
         <TouchableOpacity
           onPress={onDecrement}
-          disabled={isBought || quantity === 1}>
+          disabled={isChecked || quantity === 1}>
           <Text style={[styles.incrementDecrement, strikeThroughStyle]}>-</Text>
         </TouchableOpacity>
         <Text
@@ -55,12 +55,12 @@ export const ItemCard = ({
             styles.quantityText,
             strikeThroughStyle,
           ]}>{` x ${quantity} `}</Text>
-        <TouchableOpacity onPress={onIncrement} disabled={isBought}>
+        <TouchableOpacity onPress={onIncrement} disabled={isChecked}>
           <Text style={[styles.incrementDecrement, strikeThroughStyle]}>+</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity onPress={onPress} style={styles.checkBox}>
-        <CheckBox isChecked={isBought} />
+        <CheckBox isChecked={isChecked} />
       </TouchableOpacity>
     </View>
   );

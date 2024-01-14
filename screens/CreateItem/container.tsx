@@ -37,7 +37,7 @@ export const CreateItemContainer = ({
   const onPressAdd = async (item: ShoppingItem) => {
     const newItemData: ShoppingItem = {
       ...item,
-      isBought: false,
+      isChecked: false,
       quantity: 1,
     };
 

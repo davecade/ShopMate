@@ -43,6 +43,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: scaleFontSize(18),
     color: globalColors.orangeYellow,
+    maxWidth: '80%',
   },
   price: {
     color: globalColors.completedColor,

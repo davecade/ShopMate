@@ -8,6 +8,7 @@ type ProgressCircleProps = {
   completed: number;
   radius: number;
   strokeWidth: number;
+  fontSize?: number;
 };
 
 export const ProgressCircle = ({
@@ -15,6 +16,7 @@ export const ProgressCircle = ({
   completed,
   radius,
   strokeWidth,
+  fontSize = 16,
 }: ProgressCircleProps) => {
   const circumference = 2 * Math.PI * radius;
   const strokeDasharray = circumference;
@@ -63,7 +65,7 @@ export const ProgressCircle = ({
           y="50%"
           textAnchor="middle"
           fill={progressColor}
-          fontSize="16"
+          fontSize={String(fontSize)}
           dy=".3em">
           {progressText}
         </Text>

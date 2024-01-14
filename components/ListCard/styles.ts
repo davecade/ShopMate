@@ -27,8 +27,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  textContainer: {
+    maxWidth: '75%',
+  },
   listName: {
-    fontSize: scaleFontSize(20),
+    fontSize: scaleFontSize(16),
     fontWeight: 'bold',
     color: globalColors.orangeYellow,
   },

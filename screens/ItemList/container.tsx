@@ -32,7 +32,7 @@ export const ItemListContainer = ({
   }, [selectedListTempState]);
   const completedItems = useMemo(() => {
     return (
-      selectedShoppingListItems?.filter(item => item.isBought)?.length || 0
+      selectedShoppingListItems?.filter(item => item.isChecked)?.length || 0
     );
   }, [selectedShoppingListItems]);
 
@@ -57,7 +57,7 @@ export const ItemListContainer = ({
         if (item._id === selectedItemId) {
           return {
             ...item,
-            isBought: !item.isBought,
+            isChecked: !item.isChecked,
           };
         }
         return item;
