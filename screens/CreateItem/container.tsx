@@ -3,10 +3,10 @@ import {CreateItemView} from './view';
 import {ShoppingItem, ShoppingList} from '../../types';
 import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 import {
+  allItemsAtom,
   hasCurrentListChangedAtom,
   selectedListStateAtom,
 } from '../../state/atoms';
-import {getAllItemsQuery} from '../../state/selectors';
 
 type CreateItemContainerProps = {
   navigateToPreviousPage: () => void;
@@ -15,7 +15,7 @@ type CreateItemContainerProps = {
 export const CreateItemContainer = ({
   navigateToPreviousPage,
 }: CreateItemContainerProps) => {
-  const allShoppingItems = useRecoilValue<ShoppingItem[]>(getAllItemsQuery);
+  const allShoppingItems = useRecoilValue<ShoppingItem[]>(allItemsAtom);
   const [selectedListState, setSelectedListState] =
     useRecoilState<ShoppingList>(selectedListStateAtom);
   const setIsDirty = useSetRecoilState(hasCurrentListChangedAtom);

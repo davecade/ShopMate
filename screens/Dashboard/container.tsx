@@ -1,9 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {DashboardView} from './view';
-import {useRecoilState} from 'recoil';
-import {getAllListsQuery} from '../../state/selectors';
-import {deleteListAsync} from '../../services/api';
-import {ShoppingList} from '../../types';
+import {useShoppingLists} from '../../hooks/useShoppingLists';
 
 type DashboardContainerProps = {
   navigateToCreateList: () => void;
@@ -17,12 +14,20 @@ export const DashboardContainer = ({
   navigateToItemList,
 }: DashboardContainerProps) => {
   const trolleyImage = require('../../assets/images/trolley.png');
-  const [shoppingLists, setShoppingLists] =
-    useRecoilState<ShoppingList[]>(getAllListsQuery);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [selectedListIdToDelete, setSelectedListIdToDelete] = useState<
     string | undefined
   >('');
+  const {isLoading, getAllLists, deleteListById, shoppingLists} =
+    useShoppingLists();
+
+  // initial fetch
+  useEffect(() => {
+    (async () => {
+      getAllLists();
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onCreateList = () => {
     navigateToCreateList();
@@ -42,17 +47,13 @@ export const DashboardContainer = ({
   };
 
   const onDeleteList = async (listId: string = '') => {
-    const deletedList = await deleteListAsync(listId);
-    if (deletedList) {
-      setShoppingLists(prev =>
-        prev.filter(list => list._id !== deletedList._id),
-      );
-    }
+    deleteListById(listId);
     onCloseDialog();
   };
 
   return (
     <DashboardView
+      isLoading={isLoading}
       onCreateList={onCreateList}
       onEditList={onEditList}
       onPressList={onPressList}
@@ -63,7 +64,7 @@ export const DashboardContainer = ({
       showDeleteDialog={showDeleteDialog}
       selectedListIdToDelete={selectedListIdToDelete}
       image={trolleyImage}
-      shoppingLists={shoppingLists ? shoppingLists : []}
+      shoppingLists={shoppingLists || []}
     />
   );
 };

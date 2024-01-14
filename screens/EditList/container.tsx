@@ -1,9 +1,7 @@
-import React, {useMemo} from 'react';
+import React, {useEffect, useState} from 'react';
 import {EditListView} from './view';
-import {useRecoilValueLoadable, useSetRecoilState} from 'recoil';
 import {ShoppingList} from '../../types';
-import {updateListAsync} from '../../services/api';
-import {getAllListsQuery, getListByIdQuery} from '../../state/selectors';
+import {useShoppingLists} from '../../hooks/useShoppingLists';
 
 type EditListContainerProps = {
   preselectedListId: string;
@@ -14,13 +12,15 @@ export const EditListContainer = ({
   preselectedListId,
   navigateToPreviousPage,
 }: EditListContainerProps) => {
-  const setShoppingLists = useSetRecoilState<ShoppingList[]>(getAllListsQuery);
-  const selectedListLoadable = useRecoilValueLoadable(
-    getListByIdQuery(preselectedListId),
-  );
-  const currentListName = useMemo(() => {
-    return selectedListLoadable.contents?.name || '';
-  }, [selectedListLoadable]);
+  const {updateList, isLoading, getListById, selectedList, setSelectedList} =
+    useShoppingLists();
+  const [listNameValue, setListNameValue] = useState('');
+  const [showInputError, setShowInputError] = useState(false);
+
+  useEffect(() => {
+    getListById(preselectedListId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preselectedListId]);
 
   const onPressSave = async (title: string) => {
     if (!title) {
@@ -28,22 +28,41 @@ export const EditListContainer = ({
     }
 
     const updatedListData: ShoppingList = {
-      ...selectedListLoadable.contents,
+      ...selectedList,
       name: title,
     };
 
-    const updatedListResponse = await updateListAsync(updatedListData);
-    setShoppingLists(prevLists => [...prevLists, updatedListResponse]);
+    await updateList(updatedListData);
     navigateToPreviousPage();
+    resetValues();
   };
 
   const onPressCancel = () => {
     navigateToPreviousPage();
+    resetValues();
   };
+
+  const resetValues = () => {
+    setListNameValue('');
+    setShowInputError(false);
+    setSelectedList({
+      _id: '',
+      name: '',
+      items: [],
+    });
+  };
+
+  useEffect(() => {
+    setListNameValue(selectedList.name);
+  }, [selectedList]);
 
   return (
     <EditListView
-      currentListName={currentListName}
+      isLoading={isLoading}
+      listNameValue={listNameValue}
+      showInputError={showInputError}
+      setListNameValue={setListNameValue}
+      setShowInputError={setShowInputError}
       onPressCancel={onPressCancel}
       onPressSave={onPressSave}
     />

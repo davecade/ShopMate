@@ -3,7 +3,7 @@ import Config from 'react-native-config';
 import {ShoppingItem, ShoppingList} from '../types';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://shopmate-live-cd9f4d646e54.herokuapp.com',
 });
 
 api.interceptors.request.use(config => {
@@ -11,7 +11,7 @@ api.interceptors.request.use(config => {
   return config;
 });
 
-export const getAllListsAsync = async () => {
+export const getAllListsAsync = async (): Promise<ShoppingList[]> => {
   try {
     const response = await api.get('/lists');
     return response.data;
@@ -31,7 +31,7 @@ export const getAllItemsAsync = async () => {
   }
 };
 
-export const getListByIdAsync = async (id: string) => {
+export const getListByIdAsync = async (id: string): Promise<ShoppingList> => {
   try {
     const response = await api.get(`/lists/${id}`);
     return response.data;

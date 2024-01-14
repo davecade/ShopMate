@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import LoginView from './view';
 import {useSetRecoilState} from 'recoil';
-import {getAllItemsQuery} from '../../state/selectors';
 import {ShoppingItem} from '../../types';
 import {getAllItemsAsync} from '../../services/api';
+import {allItemsAtom} from '../../state/atoms';
 
 type LoginContainerProps = {
   navigateToDashboard: () => void;
@@ -11,15 +11,13 @@ type LoginContainerProps = {
 
 export const LoginContainer = ({navigateToDashboard}: LoginContainerProps) => {
   const loginImage = require('../../assets/images/home.png');
-  const setAllShoppingItems =
-    useSetRecoilState<ShoppingItem[]>(getAllItemsQuery);
+  const setAllShoppingItems = useSetRecoilState<ShoppingItem[]>(allItemsAtom);
 
   useEffect(() => {
-    const getAllItems = async () => {
+    (async () => {
       const items = await getAllItemsAsync();
       setAllShoppingItems(items);
-    };
-    getAllItems();
+    })();
   }, [setAllShoppingItems]);
 
   return (

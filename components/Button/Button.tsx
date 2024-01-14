@@ -7,6 +7,7 @@ type ButtonProps = {
   onPress: () => void;
   type?: 'primary' | 'secondary' | 'grey';
   style?: {};
+  disabled?: boolean;
 };
 
 export const Button = ({
@@ -14,6 +15,7 @@ export const Button = ({
   onPress,
   type = 'primary',
   style = {},
+  disabled = false,
 }: ButtonProps) => {
   const [buttonStyles, setButtonStyles] = useState<{}>(styles.primaryButton);
   const [buttonTextStyles, setButtonTextStyles] = useState<{}>(
@@ -45,7 +47,10 @@ export const Button = ({
   }, [type]);
 
   return (
-    <TouchableOpacity style={[buttonStyles, style]} onPress={onPress}>
+    <TouchableOpacity
+      style={[buttonStyles, style]}
+      onPress={onPress}
+      disabled={disabled}>
       <Text style={buttonTextStyles}>{text}</Text>
     </TouchableOpacity>
   );

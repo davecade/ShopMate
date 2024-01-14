@@ -7,6 +7,7 @@ import {ListCard} from '../../components/ListCard/ListCard';
 import {ShoppingList} from '../../types';
 import {Alert} from '../../components/Alert/Alert';
 import AddButton from '../../components/AddButton/AddButton';
+import LoadingOverlay from '../../components/LoadingOverlay/LoadingOverlay';
 
 type DashboardViewProps = {
   onCreateList: () => void;
@@ -16,6 +17,7 @@ type DashboardViewProps = {
   setShowDeleteDialog: (show: boolean) => void;
   onCloseDeleteDialog: () => void;
   setSelectedListIdToDelete: (id: string | undefined) => void;
+  isLoading: boolean;
   showDeleteDialog: boolean;
   selectedListIdToDelete: string | undefined;
   image: number;
@@ -30,7 +32,7 @@ export const DashboardView = ({
   setShowDeleteDialog,
   onCloseDeleteDialog,
   setSelectedListIdToDelete,
-
+  isLoading,
   showDeleteDialog,
   selectedListIdToDelete,
   image,
@@ -95,6 +97,7 @@ export const DashboardView = ({
         onAction={() => onDeleteList(selectedListIdToDelete)}
         onClose={onCloseDeleteDialog}
       />
+      <LoadingOverlay isVisible={isLoading} />
     </View>
   );
 };

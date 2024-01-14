@@ -3,13 +3,16 @@ import React, {useState} from 'react';
 import {styles} from './styles';
 import {Button} from '../../components/Button/Button';
 import {Heading, Text, VStack} from '@gluestack-ui/themed';
+import LoadingOverlay from '../../components/LoadingOverlay/LoadingOverlay';
 
 type CreateListViewProps = {
+  isLoading: boolean;
   onPressCancel: () => void;
   onPressCreate: (title: string) => void;
 };
 
 export const CreateListView = ({
+  isLoading,
   onPressCancel,
   onPressCreate,
 }: CreateListViewProps) => {
@@ -47,7 +50,7 @@ export const CreateListView = ({
             }}
           />
           <Button
-            text="Create"
+            text={'Create List'}
             onPress={() => {
               if (!listNameValue) {
                 setShowInputError(true);
@@ -58,6 +61,7 @@ export const CreateListView = ({
           />
         </View>
       </VStack>
+      <LoadingOverlay isVisible={isLoading} />
     </View>
   );
 };

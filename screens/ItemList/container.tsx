@@ -1,14 +1,6 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {ItemListView} from './view';
-import {
-  useRecoilState,
-  useSetRecoilState,
-  useRecoilValueLoadable,
-} from 'recoil';
-import {selectedListIdAtom, selectedListStateAtom} from '../../state/atoms';
-import {ShoppingList} from '../../types';
-import {getAllListsQuery, getListByIdQuery} from '../../state/selectors';
-import {updateListAsync} from '../../services/api';
+import {useShoppingLists} from '../../hooks/useShoppingLists';
 
 type ItemListtContainerProps = {
   preselectedListId: string;
@@ -31,26 +23,19 @@ export const ItemListContainer = ({
   showDiscardDialog,
   setShowDiscardDialog,
 }: ItemListtContainerProps) => {
-  const setShoppingLists = useSetRecoilState<ShoppingList[]>(getAllListsQuery);
-  const [selectedListId, setSelectedListId] =
-    useRecoilState<string>(selectedListIdAtom);
-  const selectedListLoadable = useRecoilValueLoadable(
-    getListByIdQuery(selectedListId),
-  );
-
-  const selectedListData = selectedListLoadable.contents;
-  const [selectedListState, setSelectedListState] =
-    useRecoilState<ShoppingList>(selectedListStateAtom);
+  const {isLoading, updateList, getListById, selectedList} = useShoppingLists();
+  const [selectedListTempState, setSelectedListTempState] =
+    useState(selectedList);
 
   const selectedShoppingListItems = useMemo(() => {
-    return selectedListState?.items || [];
-  }, [selectedListState]);
+    return selectedListTempState?.items || [];
+  }, [selectedListTempState]);
   const completedItems = useMemo(() => {
     return (
       selectedShoppingListItems?.filter(item => item.isBought)?.length || 0
     );
   }, [selectedShoppingListItems]);
-  const isLoading = selectedListLoadable.state === 'loading';
+
   const totalItems = selectedShoppingListItems?.length || 0;
   const totalCost = useMemo(() => {
     return Number(
@@ -67,7 +52,7 @@ export const ItemListContainer = ({
   }, [selectedShoppingListItems]);
 
   const onPressItem = (selectedItemId: string = '') => {
-    setSelectedListState(prevState => {
+    setSelectedListTempState(prevState => {
       const updatedItems = prevState.items.map(item => {
         if (item._id === selectedItemId) {
           return {
@@ -86,7 +71,7 @@ export const ItemListContainer = ({
   };
 
   const onDeleteItem = (selectedItemId: string = '') => {
-    setSelectedListState(prevState => {
+    setSelectedListTempState(prevState => {
       const updatedItems = prevState.items.filter(
         item => item._id !== selectedItemId,
       );
@@ -99,7 +84,7 @@ export const ItemListContainer = ({
   };
 
   const onPressIncrement = (selectedItemId: string = '') => {
-    setSelectedListState(prevState => {
+    setSelectedListTempState(prevState => {
       const updatedItems = prevState.items.map(item => {
         if (item._id === selectedItemId) {
           return {
@@ -118,7 +103,7 @@ export const ItemListContainer = ({
   };
 
   const onPressDecrement = (selectedItemId: string = '') => {
-    setSelectedListState(prevState => {
+    setSelectedListTempState(prevState => {
       const updatedItems = prevState.items.map(item => {
         if (item._id === selectedItemId) {
           return {
@@ -137,43 +122,28 @@ export const ItemListContainer = ({
   };
 
   const saveChanges = async () => {
-    const updatedListResponse = await updateListAsync(selectedListState);
-
-    if (updatedListResponse) {
-      setShoppingLists(prev => {
-        const newList = prev.find(list => list._id === selectedListId);
-        if (newList) {
-          return prev.map(list =>
-            list._id === selectedListId ? updatedListResponse : list,
-          );
-        }
-        return prev;
-      });
-    }
+    await updateList(selectedListTempState);
     navigateToPreviousPage();
-    setTimeout(() => {
-      discardChanges();
-    }, 500); // so that it doesn't change too fast
+    discardChanges();
   };
 
   useEffect(() => {
-    setSelectedListId(preselectedListId);
-  }, [setSelectedListId, preselectedListId]);
+    getListById(preselectedListId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
-    if (!isLoading && selectedListData) {
-      setSelectedListState(selectedListData);
-    }
-  }, [isLoading, selectedListData, setSelectedListState]);
+    setSelectedListTempState(selectedList);
+  }, [selectedList]);
 
   const discardChanges = () => {
-    setSelectedListState(selectedListData);
+    getListById(preselectedListId);
     setIsDirty(false);
   };
 
   return (
     <ItemListView
-      listName={selectedListState?.name || ''}
+      listName={selectedListTempState?.name || ''}
       totalItems={totalItems}
       totalCost={totalCost}
       totalCompletedItems={completedItems}

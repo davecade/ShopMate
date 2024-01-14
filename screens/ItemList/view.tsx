@@ -11,6 +11,7 @@ import {ImageWithGlow} from '../../components/ImageWithGlow/ImageWithGlow';
 import {Alert} from '../../components/Alert/Alert';
 import AddButton from '../../components/AddButton/AddButton';
 import {horizontalScale} from '../../styles/scaling';
+import LoadingOverlay from '../../components/LoadingOverlay/LoadingOverlay';
 
 type ItemListViewProps = {
   listName: string;
@@ -78,11 +79,7 @@ export const ItemListView = ({
             </View>
           </View>
         </VStack>
-        {isLoading ? (
-          <View style={[globalStyles.flex, styles.emptyTextContainer]}>
-            <Text style={styles.emptyText}>Loading...</Text>
-          </View>
-        ) : isEmpty && !isDirty ? (
+        {isEmpty && !isDirty ? (
           <View style={[globalStyles.flex]}>
             <VStack gap="$10">
               <View style={styles.imageContainer}>
@@ -141,6 +138,7 @@ export const ItemListView = ({
           }, 500); // so that it doesn't change too fast
         }}
       />
+      <LoadingOverlay isVisible={isLoading} />
     </View>
   );
 };

@@ -1,27 +1,29 @@
 import {View, TextInput} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {styles} from './styles';
 import {Button} from '../../components/Button/Button';
 import {Heading, Text, VStack} from '@gluestack-ui/themed';
+import LoadingOverlay from '../../components/LoadingOverlay/LoadingOverlay';
 
 type EditListViewProps = {
-  currentListName: string;
+  isLoading: boolean;
+  listNameValue: string;
+  showInputError: boolean;
+  setListNameValue: (value: string) => void;
+  setShowInputError: (show: boolean) => void;
   onPressCancel: () => void;
   onPressSave: (title: string) => void;
 };
 
 export const EditListView = ({
-  currentListName,
+  isLoading,
+  listNameValue,
+  showInputError,
+  setListNameValue,
+  setShowInputError,
   onPressCancel,
   onPressSave,
 }: EditListViewProps) => {
-  const [listNameValue, setListNameValue] = useState(currentListName);
-  const [showInputError, setShowInputError] = useState(false);
-
-  useEffect(() => {
-    setListNameValue(currentListName);
-  }, [currentListName]);
-
   return (
     <View style={styles.container}>
       <VStack space="3xl">
@@ -64,6 +66,7 @@ export const EditListView = ({
           />
         </View>
       </VStack>
+      <LoadingOverlay isVisible={isLoading} />
     </View>
   );
 };

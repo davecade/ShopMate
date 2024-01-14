@@ -1,9 +1,7 @@
 import React from 'react';
 import {CreateListView} from './view';
-import {useSetRecoilState} from 'recoil';
 import {ShoppingList} from '../../types';
-import {createListAsync} from '../../services/api';
-import {getAllListsQuery} from '../../state/selectors';
+import {useShoppingLists} from '../../hooks/useShoppingLists';
 
 type CreateListContainerProps = {
   navigateToPreviousPage: () => void;
@@ -12,7 +10,7 @@ type CreateListContainerProps = {
 export const CreateListContainer = ({
   navigateToPreviousPage,
 }: CreateListContainerProps) => {
-  const setShoppingLists = useSetRecoilState<ShoppingList[]>(getAllListsQuery);
+  const {createList, isLoading} = useShoppingLists();
 
   const onPressCreate = async (title: string) => {
     if (!title) {
@@ -24,8 +22,7 @@ export const CreateListContainer = ({
       items: [],
     };
 
-    const newListResponse = await createListAsync(newListData);
-    setShoppingLists(prevLists => [...prevLists, newListResponse]);
+    await createList(newListData);
     navigateToPreviousPage();
   };
   const onPressCancel = () => {
@@ -34,6 +31,7 @@ export const CreateListContainer = ({
 
   return (
     <CreateListView
+      isLoading={isLoading}
       onPressCancel={onPressCancel}
       onPressCreate={onPressCreate}
     />
