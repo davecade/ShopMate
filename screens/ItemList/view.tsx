@@ -56,6 +56,7 @@ export const ItemListView = ({
 }: ItemListViewProps) => {
   const hasItems = listItems?.length > 0;
   const isEmpty = !hasItems;
+  const showPlus = hasItems || (isEmpty && isDirty);
   return (
     <View style={globalStyles.container}>
       <VStack space="sm">
@@ -69,7 +70,7 @@ export const ItemListView = ({
                 radius={horizontalScale(25)}
                 strokeWidth={horizontalScale(4)}
               />
-              {hasItems && (
+              {showPlus && (
                 <View style={styles.addButtonContainer}>
                   <View style={styles.buttonContainerRowEnd}>
                     <AddButton onPress={navigateToCreateItem} />

@@ -9,10 +9,10 @@ import LoadingOverlay from '../../components/LoadingOverlay/LoadingOverlay';
 type LoginViewProps = {
   isLoading: boolean;
   image: number;
-  navigateToDashboard: () => void;
+  handleLogin: () => void;
 };
 
-const LoginView = ({isLoading, image, navigateToDashboard}: LoginViewProps) => {
+const LoginView = ({isLoading, image, handleLogin}: LoginViewProps) => {
   return (
     <View style={styles.container}>
       <Heading style={styles.title}>Shop Mate</Heading>
@@ -22,7 +22,7 @@ const LoginView = ({isLoading, image, navigateToDashboard}: LoginViewProps) => {
       <Button
         type="secondary"
         text={'Start using Shop Mate'}
-        onPress={navigateToDashboard}
+        onPress={handleLogin}
       />
       <LoadingOverlay isVisible={isLoading} />
     </View>

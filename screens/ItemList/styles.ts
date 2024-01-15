@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: verticalScale(10),
+    width: '100%',
   },
   title: {
     fontSize: scaleFontSize(24),
@@ -79,8 +80,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   flexDirectionRow: {
-    borderWidth: 1,
     flexDirection: 'row',
+    width: '100%',
   },
   totalCost: {
     fontSize: scaleFontSize(20),

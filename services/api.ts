@@ -1,13 +1,13 @@
 import axios from 'axios';
-import Config from 'react-native-config';
 import {ShoppingItem, ShoppingList} from '../types';
+import {API_SECRET_KEY} from '../env';
 
 const api = axios.create({
   baseURL: 'https://shopmate-live-cd9f4d646e54.herokuapp.com',
 });
 
 api.interceptors.request.use(config => {
-  config.headers.Authorization = `Bearer ${Config.API_SECRET_KEY}`;
+  config.headers.Authorization = `Bearer ${API_SECRET_KEY}`;
   return config;
 });
 
