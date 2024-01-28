@@ -1,6 +1,8 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {ItemListView} from './view';
 import {useShoppingLists} from '../../hooks/useShoppingLists';
+import {useRecoilState} from 'recoil';
+import {selectedListTempStateAtom} from '../../state/atoms';
 
 type ItemListtContainerProps = {
   preselectedListId: string;
@@ -24,8 +26,15 @@ export const ItemListContainer = ({
   setShowDiscardDialog,
 }: ItemListtContainerProps) => {
   const {isLoading, updateList, getListById, selectedList} = useShoppingLists();
-  const [selectedListTempState, setSelectedListTempState] =
-    useState(selectedList);
+  const [selectedListTempState, setSelectedListTempState] = useRecoilState(
+    selectedListTempStateAtom,
+  );
+
+  useEffect(() => {
+    if (!isLoading && selectedList) {
+      setSelectedListTempState(selectedList);
+    }
+  }, [selectedList]);
 
   const selectedShoppingListItems = useMemo(() => {
     return selectedListTempState?.items || [];

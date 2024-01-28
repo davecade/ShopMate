@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import {
   horizontalScale,
   scaleFontSize,
@@ -24,7 +24,11 @@ export const styles = StyleSheet.create({
     backgroundColor: '#1f1f1f',
     borderRadius: horizontalScale(20),
     padding: horizontalScale(10),
-    fontSize: scaleFontSize(18),
+    paddingHorizontal: horizontalScale(10),
+    fontSize: Platform.select({
+      ios: scaleFontSize(18),
+      android: undefined,
+    }),
     color: '#B2B2B2',
   },
   buttonContainer: {

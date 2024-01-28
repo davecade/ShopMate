@@ -19,7 +19,18 @@ export const selectedListIdAtom = atom<string>({
   default: '',
 });
 
+// For the saved list
 export const selectedListStateAtom = atom<ShoppingList>({
+  key: keys.selectedListState,
+  default: {
+    _id: '',
+    name: '',
+    items: [],
+  },
+});
+
+// For the list being edited before saving
+export const selectedListTempStateAtom = atom<ShoppingList>({
   key: keys.selectedListState,
   default: {
     _id: '',

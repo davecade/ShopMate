@@ -6,6 +6,7 @@ import {
   allItemsAtom,
   hasCurrentListChangedAtom,
   selectedListStateAtom,
+  selectedListTempStateAtom,
 } from '../../state/atoms';
 
 type CreateItemContainerProps = {
@@ -16,23 +17,24 @@ export const CreateItemContainer = ({
   navigateToPreviousPage,
 }: CreateItemContainerProps) => {
   const allShoppingItems = useRecoilValue<ShoppingItem[]>(allItemsAtom);
-  const [selectedListState, setSelectedListState] =
-    useRecoilState<ShoppingList>(selectedListStateAtom);
+  const [selectedListTempState, setSelectedListTempState] = useRecoilState(
+    selectedListTempStateAtom,
+  );
   const setIsDirty = useSetRecoilState(hasCurrentListChangedAtom);
 
   const selectableItems = useMemo(() => {
-    if (selectedListState?._id) {
+    if (selectedListTempState?._id) {
       return allShoppingItems.filter(item => {
-        if (!selectedListState) {
+        if (!selectedListTempState) {
           return false;
         }
-        return !selectedListState.items.some(
+        return !selectedListTempState.items.some(
           listItem => listItem._id === item._id,
         );
       });
     }
     return [];
-  }, [selectedListState, allShoppingItems]);
+  }, [selectedListTempState, allShoppingItems]);
 
   const onPressAdd = async (item: ShoppingItem) => {
     const newItemData: ShoppingItem = {
@@ -42,7 +44,7 @@ export const CreateItemContainer = ({
     };
 
     if (newItemData) {
-      setSelectedListState(prev => {
+      setSelectedListTempState(prev => {
         return {
           ...prev,
           items: [...prev.items, newItemData],
