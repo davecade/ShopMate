@@ -5,6 +5,7 @@ const keys = {
   allLists: '@ShopMate_allLists',
   selectedListId: '@ShopMate_selectedListId',
   selectedListState: '@ShopMate_selectedListState',
+  selectedListTempState: '@ShopMate_selectedListTempState',
   allItems: 'ShopMate_allItems',
   hasCurrentListChanged: '@ShopMate_hasCurrentListChanged',
 };
@@ -31,7 +32,7 @@ export const selectedListStateAtom = atom<ShoppingList>({
 
 // For the list being edited before saving
 export const selectedListTempStateAtom = atom<ShoppingList>({
-  key: keys.selectedListState,
+  key: keys.selectedListTempState,
   default: {
     _id: '',
     name: '',
