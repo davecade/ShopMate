@@ -1,11 +1,10 @@
 import React, {useMemo} from 'react';
 import {CreateItemView} from './view';
-import {ShoppingItem, ShoppingList} from '../../types';
+import {ShoppingItem} from '../../types';
 import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 import {
   allItemsAtom,
   hasCurrentListChangedAtom,
-  selectedListStateAtom,
   selectedListTempStateAtom,
 } from '../../state/atoms';
 
